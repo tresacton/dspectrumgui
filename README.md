@@ -1,9 +1,9 @@
-== README
+## DSpectrumGUI
 
 The goal of this app is to make it trivial to demodulate common RF signals, and provide a digital worksheet for your reverse engineering efforts.
 
 
-== INSTALLATION (Instructions tested on Kali Rolling 2.0 - may be slightly different for other Operating Systems)
+## INSTALLATION (Instructions tested on Kali Rolling 2.0 - may be slightly different for other Operating Systems)
 
 ```bash
 # Installing RVM & Ruby 2.2.2
