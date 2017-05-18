@@ -2,69 +2,23 @@
 
 The goal of this app is to make it trivial to demodulate common RF signals, and provide a digital worksheet for your reverse engineering efforts.
 
+![DSpectrumGUI Screenshot](https://raw.githubusercontent.com/tresacton/dspectrumgui/master/public/screenshot.png)
 
 # Installation 
-###Instructions tested on Kali Rolling 2.0 - may be slightly different for other Operating Systems
-
-```bash
-## Installing RVM & Ruby 2.2.2
-gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-\curl -sSL https://get.rvm.io | bash
-
-source /etc/profile.d/rvm.sh
-echo "source /etc/profile.d/rvm.sh" >> ~/.bashrc
-
-rvm install 2.2.2
-
-## Installing Inspectrum (instructions from: https://github.com/miek/inspectrum/wiki/Build)
-
-git clone https://github.com/miek/inspectrum.git
-cd inspectrum
-sudo apt-get install qt5-default libfftw3-dev cmake pkg-config
-mkdir build
-cd build
-cmake ..
-make
-sudo make install
-
-## Installing DSpectrumGUI (this app)
-
-git clone https://github.com/tresacton/dspectrumgui.git
-cd dspectrumgui
-rvm use 2.2.2
-bundle
-rake db:setup && rake db:migrate && rake db:seed
-
-## Launcing DSpectrumGUI
-
-rails s -p 3001
-
-echo "You can now open a browser and navigate to http://localhost:3001/"
-
-```
-
-# Default Credentials (and how to change them)
-
-Username: user@example.com
-Password: password
-
-###To change them:
-
-```bash
-cd dspectrumgui
-rails c
-u = User.last
-u.email = "you@somewhere.com"
-u.password = u.password_confirmation = "YourSecurePassword"
-u.full_name = "Earthling"
-u.save!
-```
+Step by step instructions for Kali Linux (Debian based OS) are available in the wiki: <https://github.com/tresacton/dspectrumgui/wiki/Installing-DSpectrumGUI> 
 
 
-## Security Considerations
+# Features
+* Ability to create devices
+* Wraps Inspectrum and uses its "Extract Symbols" feature to help convert pulses into raw binary
+* Automatic analysis of the binary to determine the modulation and encoding types (see Supported modulation types)
+* Some error detection and verbose comments where the app believes it knows which modulation type would be valid if the capture wasn't aligned correctly in Inspectrum
+* Reverse Engineering Worksheet to help you visualise the packet structure and comment on sections of the signal
+* Binary Generation for RFCat transmission (currently only supports PWM 77/25, support is currently being added for other modulation types)
 
-Despite being a security researcher, I have given zero thought to the security of this app. I will go over it from a security perspective later (then update this text), so keep that in mind.
-Don't expose the app to the internet.
-Don't keep the server running while you're not using it (i.e. do a [ctrl][c] in the window where you ran the "rails s -p xxxx" command).
+# Usage
+The wiki will be updated as I have time. In the interim, there's a high-level PDF guide I developed for a workshop which demonstrates the basic use of this application. It's available here: <https://github.com/tresacton/dspectrumgui/raw/master/public/DSpectrumGUI%20%E2%80%93%20Reverse%20Engineering%20Guide.pdf>
+
+
 
 
