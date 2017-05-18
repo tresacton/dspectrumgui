@@ -1,0 +1,73 @@
+%div.container-fluid
+  %div.row
+    %div.col-lg-12
+      %h3
+        Generated Binary:
+      %p This currently only works for PWM 75/25
+      %br
+
+
+      %div.col-lg-12{:style=>" max-width:700px;"}
+        .well.well-lg{:style=>" max-width:700px;"}
+          %h5 Binary (Original Format)
+          -bin = ""
+          -type = ""
+          - params.to_a.each do |p|
+            - if p[0].include? "section"
+              - sect_id = p[0].gsub("section_","")
+              - s = Section.find(sect_id)
+              - c = Capture.find(p[1])
+              - d = c.unit.device
+              - if d.could_be_pwm_7525?
+                - type = "pwm7525"
+                - b = c.pwm_decode_7525
+                - bin << b[s.start_pos..s.end_pos]
+          %p{:style=>" max-width:500px; word-wrap:break-word;"}=bin
+          %br
+          %span="Size: "
+          %span= bin.size
+          %span="bits "
+          %br
+          %br
+          %hr
+          %h5 Binary (OOK Format - Single)
+          - ook_bin = ""
+          - if type == "pwm7525"
+            -bin.scan(/./).each do |bit|
+              - ook_bin << "1110" if bit.to_s == '1'
+              - ook_bin << "1000" if bit.to_s == '0'
+
+          %p{:style=>" max-width:500px; word-wrap:break-word;"}= ook_bin
+          %br
+          %span="Size: "
+          %span= ook_bin.size
+          %span="bits "          
+
+
+          %br
+          %br
+          %hr
+          %h5 Binary (OOK Format - Repeated 5x with 4 bits of padding)
+          - ook_bin_rep = ""
+          - if type == "pwm7525"
+            -bin.scan(/./).each do |bit|
+              - ook_bin_rep << "1110" if bit.to_s == '1'
+              - ook_bin_rep << "1000" if bit.to_s == '0'
+
+          - ook_bin_rep < "0000"
+          %p{:style=>" max-width:500px; word-wrap:break-word;"}= ook_bin_rep = ook_bin_rep*5
+          %br
+          %span="Size: "
+          %span= ook_bin_rep.size
+          %span="bits "
+
+
+          %br
+          %br
+          %hr
+          =link_to "Return to Worksheet", :back, :style => "color:#2a9fd6;"
+
+  %br
+
+-#Vertical text style for TH
+-#%th{:style => "color:grey;-webkit-transform: rotate(-90deg);-moz-transform: rotate(-90deg);-ms-transform: rotate(-90deg);-o-transform: rotate(-90deg);filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);color: #FFF;text-transform: uppercase;"} 0

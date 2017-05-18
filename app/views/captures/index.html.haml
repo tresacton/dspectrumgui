@@ -1,0 +1,31 @@
+%h1 Listing captures
+
+%table
+  %thead
+    %tr
+      %th Unit
+      %th Device
+      %th Name
+      %th Notes
+      %th Binary
+      %th Original binary
+      %th
+      %th
+      %th
+
+  %tbody
+    - @captures.each do |capture|
+      %tr
+        %td= capture.unit_id
+        %td= capture.device_id
+        %td= capture.name
+        %td= capture.notes
+        %td= capture.binary
+        %td= capture.original_binary
+        %td= link_to 'Show', capture
+        %td= link_to 'Edit', edit_capture_path(capture)
+        %td= link_to 'Destroy', capture, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Capture', new_capture_path

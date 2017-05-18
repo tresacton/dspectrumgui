@@ -1,0 +1,44 @@
+= simple_form_for(@device) do |f|
+  = f.error_notification
+
+  .form-group
+    %label.col-lg-2.control-label{:for => "inputEmail"} Name
+    .col-lg-10
+      = f.input :name, label: false, input_html: { class: 'form-control' }
+      %br
+  .form-group
+    %label.col-lg-2.control-label{:for => "inputPassword"} FCC ID
+    .col-lg-10
+      = f.input :fcc_id, label: false, input_html: { class: 'form-control' }
+      %br
+  .form-group
+    %label.col-lg-2.control-label{:for => "inputPassword"} Modulation
+    .col-lg-10
+      = f.input :modulation, label: false, input_html: { class: 'form-control' }
+      %br
+  .form-group
+    %label.col-lg-2.control-label{:for => "inputPassword"} Encoding
+    .col-lg-10
+      = f.input :encoding, label: false, input_html: { class: 'form-control' }
+      %br
+  .form-group
+    %label.col-lg-2.control-label{:for => "inputPassword"} Frequency
+    .col-lg-10
+      = f.input :frequency, label: false, input_html: { class: 'form-control' }
+      %br
+  .form-group
+    %label.col-lg-2.control-label{:for => "inputPassword"} Baudrate
+    .col-lg-10
+      = f.input :baudrate, label: false, input_html: { class: 'form-control' }
+      %br
+  .form-group
+    %label.col-lg-2.control-label{:for => "notes"} Notes
+    .col-lg-10
+      = f.input :notes, label: false, type: 'text-area', input_html: { class: 'form-control textArea', rows: 10 }
+      %br
+
+
+  .form-group
+    .col-lg-10.col-lg-offset-2
+      /-#%button.btn.btn-default{:type => "reset"} Cancel
+      %button.btn.btn-primary{:type => "submit"} Submit

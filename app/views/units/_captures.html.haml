@@ -1,0 +1,21 @@
+%h4 Captures
+%table.table.table-bordered.table.hover
+  %thead
+    %tr.bg-primary
+      %th ID
+      %th Name
+      %th Raw Binary
+      %th Actions
+  %tbody
+    - unit.captures.each do |u|
+      %tr
+        %td= u.id
+        %td= u.name
+
+        %td
+          - u.original_binary.scan(/.{1,40}/).each do |s|
+            ="#{s}"
+            %br
+        %td{:style => "width:15%;"}
+          = link_to 'Destroy', u, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %div.col-lg-12

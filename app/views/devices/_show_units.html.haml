@@ -1,0 +1,22 @@
+%div.col-lg-12
+  %br
+  %table.table.table-bordered.table.hover
+    %thead
+      %tr.bg-primary
+        %th Name
+        %th Notes
+        %th Captures
+        %th Actions
+    %tbody
+      - device.units.each do |u|
+        %tr
+          %td= link_to u.name, u, :style => "color:#2a9fd6;"
+          %td= u.notes
+          %td= u.captures.count
+          -#- u.captures.each do |c|
+          -#  = "#{c.name} "
+          -#  %br
+          -#  =" #{c.original_binary}\n"
+          -#  %hr
+          %td{:style => "width:15%;"}
+            = link_to 'Destroy', u, :method => :delete, :data => { :confirm => 'Are you sure?' }, :style => "color:red;"

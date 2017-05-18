@@ -1,0 +1,41 @@
+%div.container-fluid
+  %div.row
+    %div.col-lg-12
+      %h3 Analysis Helper
+      %br
+      / -`inspectrum`
+
+      %table.table.table-hover.table-bordered{style:'background-color:black;'}
+        - zero = [1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1]
+        - one = [nil,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
+        - two = [nil,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0]
+        - x1 = [zero,one,two]
+        - x = x1.sort_by {|y|y.size}
+        - baseline = x.last
+        %thead
+          %tr
+            %th 
+            -x.last.each_with_index do |it,index|
+              %th{:style => "color:grey;"}= index
+            %th 
+        %tbody
+
+          - x.each do |barray|
+            %tr
+              %td <
+              - barray.each_with_index do |b, index|
+                - if b == baseline[index]
+                  %td{:style => "color:green"}= b
+                -else
+                  %td{:style => "color:red"}= b
+              %td >
+          %td b
+          -baseline.each do |b|
+            %td{:style => "color:blue"}= b
+          %td
+
+      = form_for '' do | f |
+        =f.label 'notes'
+        %br
+        =f.text_area 'd', :cols => 140
+%br

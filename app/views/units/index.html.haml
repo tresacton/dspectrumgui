@@ -1,0 +1,25 @@
+%h1 Listing units
+
+%table
+  %thead
+    %tr
+      %th Device
+      %th Name
+      %th Notes
+      %th
+      %th
+      %th
+
+  %tbody
+    - @units.each do |unit|
+      %tr
+        %td= unit.device_id
+        %td= unit.name
+        %td= unit.notes
+        %td= link_to 'Show', unit
+        %td= link_to 'Edit', edit_unit_path(unit)
+        %td= link_to 'Destroy', unit, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Unit', new_unit_path

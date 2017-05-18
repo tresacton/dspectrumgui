@@ -1,0 +1,49 @@
+- if unit.captures.present?
+  %div.col-lg-12
+    %hr
+    %h4 Raw Bit Position Analysis Tool
+
+    %p The longest binary string is used as the comparison baseline (B) below
+    %br
+    / -`inspectrum`
+
+    %table.table.table-hover.table-bordered{style:'background-color:black;'}
+      - x1 = unit.captures.each
+      - x = x1.sort_by {|y|y.original_binary.scan(/\w/).count}
+      - baseline = x.last.original_binary.scan(/\w/)
+      - x.each do |xx|
+        - diff = baseline.count - xx.original_binary.scan(/\w/).count
+        - xx.binary = xx.original_binary
+        - if diff > 0
+          - diff.times do |i|
+            - xx.binary = xx.binary << 'p'
+      %thead
+        %tr
+          %th
+          -baseline.flatten.each_with_index do |it,index|
+            %th{:style => "color:grey;"}= index
+      %tbody
+
+        - x.each do |barray|
+          %tr
+            %td
+              = barray.name
+            - barray.binary.scan(/\w/).each_with_index do |b, index|
+              - if b == baseline[index]
+                - if b != 'p'
+                  %td.text-success= b
+                - else
+                  %td
+              -else
+                - if b != 'p'
+                  %td.text-danger= b
+                - else
+                  %td
+        %td{style:"text-align:center;"} B
+        -baseline.each do |b|
+          - if b != 'p'
+            %td.text-primary= b
+          - else
+            %td
+
+    %br

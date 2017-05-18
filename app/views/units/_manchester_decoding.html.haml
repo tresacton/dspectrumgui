@@ -1,0 +1,40 @@
+%h5 Manchester Encoding
+- if manchester_format.blank?
+  %span{:style => "float:right;"}= link_to "Switch to IEEE 802 Format", '?manchester_format=802', style:"color:#2a9fd6"
+  %p Defaulting to Manchester format: "G. E. Thomas"
+- else
+  %span{:style => "float:right;"}= link_to "Switch to G. E. Thomas Format", '?', style:"color:#2a9fd6"
+  %p Showing as Manchester format: "IEE 802"
+
+%table.table.table-bordered.table.hover
+  %thead
+    %tr.bg-primary
+      %th ID
+      %th Name
+      %th Valid?
+      %th Manchester Binary
+      %th Hex
+      %th Ascii
+      %th Actions
+  %tbody
+    - unit.captures.each do |u|
+      %tr
+        %td= u.id
+        %td= u.name
+        %td
+          - if u.valid_manchester?
+            %p{:style => "color:green;"}= "#{u.valid_manchester? human=true}"
+          - else
+            %p{:style => "color:red;"}= "#{u.valid_manchester? human=true}"
+        %td
+          - manchester = (manchester_format.blank? ? manchester = u.manchester_decode : u.flip(u.manchester_decode))
+          - manchester.scan(/.{1,40}/).each do |s|
+            ="#{s}"
+            %br
+        %td="#{u.to_hexcode manchester}"
+        %td="#{u.bin_to_ascii(manchester)}"
+
+        %td{:style => "width:15%;"}
+          = link_to 'show', u
+          \|
+          = link_to 'Destroy', u, :method => :delete, :data => { :confirm => 'Are you sure?' }

@@ -1,0 +1,94 @@
+%p#notice= notice
+
+%p
+  %b Device:
+  = @section.device_id
+%p
+  %b Name:
+  = @section.name
+%p
+  %b Notes:
+  = @section.notes
+%p
+  %b Start pos:
+  = @section.start_pos
+%p
+  %b End pos:
+  = @section.end_pos
+%p
+  %b Colour:
+  = @section.colour
+
+= link_to 'Edit', edit_section_path(@section)
+\|
+= link_to 'Back', sections_path
+
+
+
+%div.container-fluid
+  %div.row
+    %div.col-lg-12
+      %h3
+        Device:
+        = @device.name
+      %p A device is effectively a category. It should have at least one unit. If you have multiple units of the same type (e.g. 3 identical garage door remotes), they are best represented as multiple units of the same device.
+      %br
+
+      %div.col-lg-8
+        %table.table.table-bordered
+          %tr
+            %th.bg-primary{style:"width:15%;"} Name
+            %td= @device.name
+          %tr
+            %th.bg-primary FCC ID
+            %td= @device.fcc_id
+          %tr
+            %th.bg-primary Modulation
+            %td
+              = @device.modulation
+          %tr
+            %th.bg-primary Encoding
+            %td= @device.encoding
+          %tr
+            %th.bg-primary Frequency
+            %td
+              = @device.frequency
+              = ' Mhz'
+          %tr
+            %th.bg-primary Baudrate
+            %td= @device.baudrate
+          %tr
+            %th.bg-primary Notes
+            %td= @device.notes
+
+      %div.col-lg-3
+        .well.well-lg
+          %h5 Actions
+          -#= link_to 'Add New Unit', edit_device_path(@device), :style => "color:#2a9fd6;"
+          -#%br
+          =link_to 'Edit Device', edit_device_path(@device), :style => "color:#2a9fd6;"
+          %br
+          = link_to 'Back to Devices', devices_path, :style => "color:#2a9fd6;"
+
+
+
+    =render "manchester_analysis", device: @device, without_baseline: @without_baseline
+
+
+    / =render "manchester_analysis", unit: @unit
+    =render "pwm_analysis", device: @device, without_baseline: @without_baseline
+    / =render "raw_analysis", unit: @unit
+
+    / # change raw so only shows if no encoding
+    =render "raw_analysis", device: @device, without_baseline: @without_baseline
+
+    / # replace with section add ??????
+    =render "add_unit", unit: @unit
+    =render "show_units", device: @device
+
+
+
+  %br
+
+-#Vertical text style for TH
+-#%th{:style => "color:grey;-webkit-transform: rotate(-90deg);-moz-transform: rotate(-90deg);-ms-transform: rotate(-90deg);-o-transform: rotate(-90deg);filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);color: #FFF;text-transform: uppercase;"} 0

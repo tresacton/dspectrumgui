@@ -1,0 +1,97 @@
+// Place all the styles related to the Dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.mcontainer {
+  width: 100%;
+  height: 10em;
+  margin: 1em auto;
+  overflow: hidden;
+  /*background: grey;*/
+  position: bottom;
+  box-sizing: border-box;
+}
+
+.right {
+  float:right;
+}
+
+.marquee {
+  top: 6em;
+  position: relative;
+  box-sizing: border-box;
+  animation: marquee 15s linear infinite;
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* Make it move! */
+@keyframes marquee {
+  0% {
+    top: 8em;
+  }
+
+  100% {
+    top: -11em;
+  }
+}
+
+
+/* Make it look pretty */
+
+.microsoft {
+  .marquee {
+    margin: 0;
+    padding: 0 1em;
+    line-height: 1.5em;
+    font: 1em 'Segoe UI', Tahoma, Helvetica, Sans-Serif;
+  }
+  &:before, &::before, &:after, &::after {
+    left: 0;
+    z-index: 1;
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    width: 100%;
+    height: 2em;
+    background-image: linear-gradient(top, black, rgba(255, 255, 255, 0));
+  }
+  &:after, &::after {
+    bottom: 0;
+    transform: rotate(180deg);
+  }
+  &:before, &::before {
+    top: 0;
+  }
+}
+
+/* Style the links */
+
+.vanity {
+  color: black;
+  text-align: center;
+  font: .75em 'Segoe UI', Tahoma, Helvetica, Sans-Serif;
+  a {
+    color: #1570A6;
+    transition: color .5s;
+    text-decoration: none;
+  }
+}
+
+.microsoft a {
+  color: #1570A6;
+  transition: color .5s;
+  text-decoration: none;
+}
+
+.vanity a:hover, .microsoft a:hover {
+  color: #F65314;
+}
+
+/* Style toggle button */
+
+.toggle {
+  display: block;
+  margin: 2em auto;
+}

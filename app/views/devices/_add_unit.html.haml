@@ -1,0 +1,15 @@
+%div.col-lg-12
+  %hr
+  %h4 Units
+  = simple_form_for(unit) do |f|
+    = f.error_notification
+
+    = f.hidden_field :device_id
+    .form-group
+      .col-lg-2
+        %h5 Add new
+      .col-lg-8
+        = f.input :name, placeholder: 'name', label: false, input_html: { class: 'form-control' }
+      .col-lg-2
+        /-#%button.btn.btn-default{:type => "reset"} Cancel
+        %button.btn.btn-primary{:type => "submit", :style => "float:right;"} Create

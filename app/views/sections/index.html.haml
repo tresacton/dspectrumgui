@@ -1,0 +1,116 @@
+%div.container-fluid
+  %div.row
+    %div.col-lg-12
+      %h3
+        Reverse Engineering Worksheet:
+        = @device.name
+      %p A Reverse Engineering Worksheet is built around the concept of sections. A section if portion of the binary that you define to have a particular meaning. E.g. if bits 0-7 represent the "Device ID" then you can define a section to reflect that. The worksheet the binary generates below is based on the modulation and encoding type saved for the device.
+      %br
+
+      %div.col-lg-8
+        %table.table.table-bordered
+          %tr
+            %th.bg-primary{style:"width:15%;"} Name
+            %td= @device.name
+          %tr
+            %th.bg-primary FCC ID
+            %td= @device.fcc_id
+          %tr
+            %th.bg-primary Modulation
+            %td
+              = @device.modulation
+          %tr
+            %th.bg-primary Encoding
+            %td= @device.encoding
+          %tr
+            %th.bg-primary Frequency
+            %td
+              = @device.frequency
+              = ' Mhz'
+          %tr
+            %th.bg-primary Baudrate
+            %td= @device.baudrate
+          %tr
+            %th.bg-primary Notes
+            %td= @device.notes
+
+      %div.col-lg-3
+        .well.well-lg
+          %h5 Actions
+          = link_to 'Go Back to Device View', @device, :style => "color:#2a9fd6;"
+          %br
+          = link_to 'Edit Device', edit_device_path(@device), :style => "color:#2a9fd6;"
+
+
+
+    / =render "manchester_analysis", device: @device, without_baseline: @without_baseline
+
+
+    / =render "manchester_analysis", unit: @unit
+    =render "sections", sections: @sections
+    =render "pwm_analysis", device: @device, without_baseline: @without_baseline
+    / =render "raw_analysis", unit: @unit
+
+    / # change raw so only shows if no encoding
+    / =render "raw_analysis", device: @device, without_baseline: @without_baseline
+
+    / # replace with section add ??????
+    / =render "add_unit", unit: @unit
+    / =render "show_units", device: @device
+
+
+    %div.col-lg-12
+      %hr
+      %h4 Define new section
+
+      %p Pick and choose which capture to use as a template for each section and generate the binary. Note for this to work as intended, each bit you want to send should be included in a section definition.
+      %br
+
+      = render 'form'
+
+
+
+
+
+    %div.col-lg-12
+      %hr
+      %h4 Generate Binary 
+
+      %p Pick and choose which captures to use as a template for each defined section and generate the binary for RFCat transmission. Note for this to work as intended, each bit in the table above should be included in a section definition or it won't be represented in the generated string.
+      %br
+
+      / = form_tag(generate_path, method: "post") do
+      /   - @sections.each_with_index do |section|
+      /     = label_tag "section_#{section.id}", "#{section.name} from Capture", input_html: { class: 'form-control' }
+      /     = text_field_tag "section_#{section.id}"
+
+      /     %br
+      /   %br
+      /   %br
+      /   %button.btn.btn-primary{:type => "submit"} Generate
+      / %hr
+      = form_tag(generate_path, method: "post") do 
+        - @sections.each_with_index do |section|
+          .form-group
+            %label.col-lg-6.control-label{:for => "colour"}= "#{section.name} from:"
+            .col-lg-10
+              - captures = []
+              - @device.captures.each do |c|
+                - captures << ["#{c.unit.name} - #{c.name}",c.id]
+              - the_options = options_for_select(captures)
+              = select_tag "section_#{section.id}", the_options, label: false, input_html: { class: 'form-control' }
+              %br
+              %hr
+        .form-group
+          .col-lg-10.col-lg-offset-0
+            /-#%button.btn.btn-default{:type => "reset"} Cancel
+            %button.btn.btn-primary{:type => "submit"} Generate Binary
+
+            %br
+            %br
+
+
+  %br
+
+-#Vertical text style for TH
+-#%th{:style => "color:grey;-webkit-transform: rotate(-90deg);-moz-transform: rotate(-90deg);-ms-transform: rotate(-90deg);-o-transform: rotate(-90deg);filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);color: #FFF;text-transform: uppercase;"} 0

@@ -1,0 +1,87 @@
+%h5 PWM Encoding
+- if pwm_format.blank?
+  %span{:style => "float:right;"}= link_to "Flip bits", '?pwm_format=flipped', style:"color:#2a9fd6"
+  %p Attempts to decode as PWM 66/33 Format (i.e. a 1 is 110, and a 0 is 100)
+- else
+  %span{:style => "float:right;"}= link_to "Undo flip bits", '?', style:"color:#2a9fd6"
+  %p Attempts to decode as PWM 66/33 Format, with bits flipped (i.e. a 1 is 100, and a 0 is 110)
+%table.table.table-bordered.table.hover
+  %thead
+    %tr.bg-primary
+      %th ID
+      %th Name
+      %th Valid?
+      %th PWM Binary
+      %th Hex
+      %th Ascii
+      %th Actions
+  %tbody
+    - unit.captures.each do |u|
+      %tr
+        %td= u.id
+        %td= u.name
+        %td
+          - if u.valid_pwm?
+            %p{:style => "color:green;"}= "#{u.valid_pwm? human=true}"
+          - else
+            %p{:style => "color:red;"}= "#{u.valid_pwm? human=true}"
+        %td
+          - pwm = (pwm_format.blank? ?  u.pwm_decode : u.flip(u.pwm_decode))
+          - pwm.scan(/.{1,40}/).each do |s|
+            ="#{s}"
+            %br
+        %td="#{u.to_hexcode pwm}"
+        %td="#{u.bin_to_ascii(pwm)}"
+
+        %td{:style => "width:15%;"}
+          = link_to 'show', u
+          \|
+          = link_to 'Destroy', u, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+
+
+/ # 75/25
+
+%h5 PWM Encoding
+- if pwm_format.blank?
+  %span{:style => "float:right;"}= link_to "Flip bits", '?pwm_format=flipped', style:"color:#2a9fd6"
+  %p Attempts to decode as PWM 75/25 Format (i.e. a 1 is 1110, and a 0 is 1000)
+- else
+  %span{:style => "float:right;"}= link_to "Undo flip bits", '?', style:"color:#2a9fd6"
+  %p Attempts to decode as PWM 75/25 Format, with bits flipped (i.e. a 1 is 1000, and a 0 is 1110)
+%table.table.table-bordered.table.hover
+  %thead
+    %tr.bg-primary
+      %th ID
+      %th Name
+      %th Valid?
+      %th PWM Binary
+      %th Hex
+      %th Ascii
+      %th Actions
+  %tbody
+    - unit.captures.each do |u|
+      %tr
+        %td= u.id
+        %td= u.name
+        %td
+          - if u.valid_pwm_7525?
+            %p{:style => "color:green;"}= "#{u.valid_pwm_7525? human=true}"
+          - else
+            %p{:style => "color:red;"}= "#{u.valid_pwm_7525? human=true}"
+        %td
+          - pwm = (pwm_format.blank? ?  u.pwm_decode_7525 : u.flip(u.pwm_decode_7525))
+          
+          - pwm.scan(/.{1,40}/).each do |s|
+            ="#{s}"
+            %br
+        %td="#{u.to_hexcode pwm}"
+        %td="#{u.bin_to_ascii(pwm)}"
+
+        %td{:style => "width:15%;"}
+          = link_to 'show', u
+          \|
+          = link_to 'Destroy', u, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+
+

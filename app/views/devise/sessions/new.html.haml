@@ -1,0 +1,26 @@
+%h3 Authenticate
+
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| 
+
+	%table.table.table-bordered{style:'width:57%;'}
+		%tr
+			%th{style:"width:30%;padding:10px;"}  Email
+			%td{style:"color:black;width:60px;padding:10px;"}= f.text_field :email, required: true, autofocus: true, label: false, size: 40
+		%tr
+			%th{style:"width:30%;padding-top:10px;padding-left:10px;padding-bottom:10px;"}  Password
+			%td{style:"color:black;padding:10px;"}=f.password_field :password, required: true, label: false, autocomplete: false, size: 40
+ 
+
+	%div.row{style:'padding-top:20px;'}
+		%div.col-lg-4
+			= f.button :submit, "Submit", :class => "btn btn-primary"  
+		%div.col-lg-3.form-action{style:'padding-top:5px;'}
+			= render "devise/shared/links" 
+		%div.col-lg-5{style:'padding-top:5px;'}
+			
+
+
+
+
+ 
+

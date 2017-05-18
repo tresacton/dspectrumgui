@@ -1,0 +1,116 @@
+- if device.units.map(&:captures).flatten.present?
+  - if device.could_be_pwm?
+    %div.col-lg-12
+      %hr
+      %h4 PWM Bit Position Analysis Tool (66/33)
+
+      %p The longest binary string is used as the comparison baseline (B) below
+      %br
+      / -`inspectrum`
+
+      %table.table.table-hover.table-bordered{style:'background-color:black;'}
+        - x1 = device.units.map(&:captures).flatten.each
+
+        - x = x1.sort_by {|y|y.pwm_decode.scan(/\w/).count}
+        - baseline = x.last.pwm_decode.scan(/\w/)
+        - x.each do |xx|
+          - diff = baseline.count - xx.pwm_decode.scan(/\w/).count
+          - if diff > 0
+            - diff.times do |i|
+              - xx.binary = xx.pwm_decode << 'p'
+        %thead
+          %tr
+            %th
+            -baseline.flatten.each_with_index do |it,index|
+              %th{:style => "color:grey;"}= index
+        %tbody
+
+          - x.each do |barray|
+            %tr
+              %td
+                = barray.class
+                %br
+                = barray.name
+              - barray.pwm_decode.scan(/\w/).each_with_index do |b, index|
+                - if b == baseline[index]
+                  - if b != 'p'
+                    %td.text-success= b
+                  - else
+                    %td
+                -else
+                  - if b != 'p'
+                    %td.text-danger= b
+                  - else
+                    %td
+          %td{style:"text-align:center;"} B
+          -baseline.each do |b|
+            - if b != 'p'
+              %td.text-primary= b
+            - else
+              %td
+
+      %br
+
+
+  - if device.could_be_pwm_7525?
+    %div.col-lg-12
+      %hr
+      %h4 PWM Bit Position Analysis Tool (75/25) - with Sections
+
+      %p The longest binary string is used as the comparison baseline (B) below
+      %br
+      / -`inspectrum`
+
+      %table.table.table-hover.table-bordered{style:'background-color:black;'}
+        - x1 = device.units.map(&:captures).flatten.each
+
+        - x = x1.sort_by {|y|y.pwm_decode_7525.scan(/\w/).count}
+        - baseline = x.last.pwm_decode_7525.scan(/\w/)
+        - x.each do |xx|
+          - diff = baseline.count - xx.pwm_decode_7525.scan(/\w/).count
+          - if diff > 0
+            - diff.times do |i|
+              - xx.binary = xx.pwm_decode_7525 << 'p'
+        %thead
+          %tr
+            %th
+            -baseline.flatten.each_with_index do |it,index|
+              - section_bits = []
+              - device.sections.each do |section|
+                -if section.section_range.member? index
+                  - section_bits << index
+                  %th{:style => "color:white;background:#{section.colour}"}= index
+              -if section_bits.exclude? index
+                %th{:style => "color:white;"}= index
+
+
+        %tbody
+
+          - x.each do |barray|
+            %tr
+              %td
+                = barray.unit.name
+                %br
+                = barray.name
+                %br
+                = "id: #{barray.id}"
+              - barray.pwm_decode_7525.scan(/\w/).each_with_index do |b, index|
+                - if b == baseline[index]
+                  - if b != 'p'
+                    %td.text-success= b
+                  - else
+                    %td
+                -else
+                  - if b != 'p'
+                    %td.text-danger= b
+                  - else
+                    %td
+          %td{style:"text-align:center;"} B
+          -baseline.each do |b|
+            - if b != 'p'
+              %td.text-primary= b
+            - else
+              %td
+
+      %br
+

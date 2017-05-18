@@ -1,0 +1,62 @@
+= simple_form_for(@section) do |f|
+  = f.error_notification
+
+  / .form-inputs
+  /   = f.input :device_id
+  /   = f.input :name
+  /   = f.input :notes
+  /   = f.input :start_pos
+  /   = f.input :end_pos
+  /   = f.input :colour
+
+  / .form-actions
+  /   = f.button :submit
+
+
+
+  = f.hidden_field :device_id
+
+  .form-group
+    %label.col-lg-2.control-label{:for => "name"} Name
+    .col-lg-10
+      = f.input :name, label: false, input_html: { class: 'form-control' }
+      %br
+
+
+  .form-group
+    %label.col-lg-2.control-label{:for => "start_pos"} Start Position (bit)
+    .col-lg-10
+      = f.input :start_pos, label: false, input_html: { class: 'form-control' }
+      %br
+
+
+  .form-group
+    %label.col-lg-2.control-label{:for => "end_pos"} End Position (bit)
+    .col-lg-10
+      = f.input :end_pos, label: false, input_html: { class: 'form-control' }
+      %br
+
+
+  .form-group
+    %label.col-lg-2.control-label{:for => "notes"} Notes
+    .col-lg-10
+      = f.input :notes, label: false, type: 'text-area', input_html: { class: 'form-control textArea', rows: 10 }
+      %br
+
+
+  .form-group
+    %label.col-lg-2.control-label{:for => "colour"} Colour
+    .col-lg-10
+      - the_options = options_for_select([['gray', 'gray'], ['blue', 'blue'], ['aqua', 'aqua'], ['cadetblue', 'cadetblue'], ['darkblue', 'darkblue'], ['green', 'green'], ['darkgreen', 'darkgreen'], ['red', 'red'], ['darkred', 'darkred'], ['deeppink', 'deeppink'], ['fuchsia', 'fuchsia'], ['indigo', 'indigo'], ['goldenrod', 'goldenrod']])
+      = f.select :colour, the_options, label: false, input_html: { class: 'form-control' }
+      %br
+      %br
+
+
+  .form-group
+    .col-lg-10.col-lg-offset-2
+      /-#%button.btn.btn-default{:type => "reset"} Cancel
+      %button.btn.btn-primary{:type => "submit"} Submit Definition
+
+      %br
+      %br

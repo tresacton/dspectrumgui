@@ -1,0 +1,23 @@
+%h3 Change your password?
+
+= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| 
+  = f.error_notification
+  = f.full_error :reset_password_token
+  %table.table.table-bordered{style:'width:57%;'}
+    %tr
+      %th{style:"width:30%;padding:10px;"} Password
+      %td{style:"color:grey;width:60px;padding:10px;"}= f.input :password, label: false, required: true, autofocus: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length)
+    %tr
+      %th{style:"width:30%;padding:10px;"} Password Confirmation
+      %td{style:"color:grey;width:60px;padding:10px;"}=f.input :password_confirmation, label: false, required: true, maxlength:72, size:72
+
+  %div.row{style:'padding-top:20px;'}
+    = f.input :reset_password_token, as: :hidden
+    %div.col-lg-4
+      = f.button :submit, "Submit", :class => "btn btn-primary"  
+    %div.col-lg-3.form-action{style:'padding-top:5px;'}
+      = render "devise/shared/links" 
+    %div.col-lg-5{style:'padding-top:5px;'}
+
+
+

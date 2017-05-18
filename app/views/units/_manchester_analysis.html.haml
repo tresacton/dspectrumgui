@@ -1,0 +1,49 @@
+- if unit.captures.present?
+  - if unit.device.could_be_manchester?
+    %div.col-lg-12
+      %hr
+      %h4 Manchester Bit Position Analysis Tool
+
+      %p The longest binary string is used as the comparison baseline (B) below
+      %br
+      / -`inspectrum`
+
+      %table.table.table-hover.table-bordered{style:'background-color:black;'}
+        - x1 = unit.captures.each
+        - x = x1.sort_by {|y|y.manchester_decode.scan(/\w/).count}
+        - baseline = x.last.manchester_decode.scan(/\w/)
+        - x.each do |xx|
+          - diff = baseline.count - xx.manchester_decode.scan(/\w/).count
+          - if diff > 0
+            - diff.times do |i|
+              - xx.binary = xx.manchester_decode << 'p'
+        %thead
+          %tr
+            %th
+            -baseline.flatten.each_with_index do |it,index|
+              %th{:style => "color:grey;"}= index
+        %tbody
+
+          - x.each do |barray|
+            %tr
+              %td
+                = barray.name
+              - barray.manchester_decode.scan(/\w/).each_with_index do |b, index|
+                - if b == baseline[index]
+                  - if b != 'p'
+                    %td.text-success= b
+                  - else
+                    %td
+                -else
+                  - if b != 'p'
+                    %td.text-danger= b
+                  - else
+                    %td
+          %td{style:"text-align:center;"} B
+          -baseline.each do |b|
+            - if b != 'p'
+              %td.text-primary= b
+            - else
+              %td
+
+      %br

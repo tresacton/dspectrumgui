@@ -1,0 +1,71 @@
+%div.container-fluid
+  %div.row
+    %div.col-lg-12
+      %h3
+        Unit:
+        = @unit.name
+      %p
+        This unit is a
+        = link_to @unit.device.name, @unit.device, style:"color:#2a9fd6"
+      %br
+
+      %div.col-lg-8
+        %table.table.table-bordered
+          %tr
+            %th.bg-primary{style:"width:25%;"} Name
+            %td= @unit.name
+          %tr
+            %th.bg-primary Device ID
+            %td= @unit.device.id
+          %tr
+            %th.bg-primary Device Name
+            %td
+              = @unit.device.name
+          %tr
+            %th.bg-primary Notes
+            %td= @unit.notes
+
+
+
+      %div.col-lg-3
+        .well.well-lg
+          %h5 Actions
+          = link_to 'Add New Capture' , new_device_unit_capture_path(@unit.device.id, @unit.id), style:"color:#2a9fd6"
+          %br
+          = link_to 'Edit Unit', edit_unit_path(@unit), style:"color:#2a9fd6"
+          %br
+          = link_to 'View Device', @unit.device, style:"color:#2a9fd6"
+
+
+
+      %div.col-lg-12
+        %hr
+        =render "captures", unit: @unit
+
+
+        %hr
+        %h4 Automated Demodulation Attempts
+        %br
+
+        =render "raw_decoding", unit: @unit
+        =render "manchester_decoding", unit: @unit, manchester_format: @manchester_format
+        =render "pwm_decoding", unit: @unit, pwm_format: @pwm_format
+
+        =render "manchester_analysis", unit: @unit
+        =render "pwm_analysis", unit: @unit
+        =render "raw_analysis", unit: @unit
+
+
+
+
+  = simple_form_for(@unit) do |f|
+    = f.error_notification
+    .form-group
+      %label.col-lg-2.control-label{:for => "notes"} Notes
+      .col-lg-10
+        = f.input :notes, label: false, type: 'text-area', input_html: { class: 'form-control textArea', rows: 10 }
+      %br
+      .form-group
+        .col-lg-10.col-lg-offset-2
+          /-#%button.btn.btn-default{:type => "reset"} Cancel
+          %button.btn.btn-primary{:type => "submit"} Update

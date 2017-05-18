@@ -1,0 +1,23 @@
+
+<h2>Resend unlock instructions</h2>
+
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| 
+
+	%table.table.table-bordered{style:'width:57%;'}
+		%tr
+			%th{style:"width:30%;padding:10px;"}  Email
+			%td{style:"color:black;width:60px;padding:10px;"}= f.text_field :email, required: true, autofocus: true, label: false, size: 40
+
+ 
+
+	%div.row{style:'padding-top:20px;'}
+		%div.col-lg-6
+			= f.button :submit, "Resend unlock instructions", :class => "btn btn-primary" 
+		%div.col-lg-3.form-action{style:'padding-top:5px;'}
+			= render "devise/shared/links" 
+		%div.col-lg-5{style:'padding-top:5px;'}
+
+
+
+ 
+

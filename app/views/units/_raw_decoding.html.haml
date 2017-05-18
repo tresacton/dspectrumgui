@@ -1,0 +1,22 @@
+%h5 Raw (No special encoding)
+
+%table.table.table-bordered.table.hover
+  %thead
+    %tr.bg-primary
+      %th ID
+      %th Name
+      %th Raw Binary To Hex
+      %th Raw Binary To Ascii
+      %th Actions
+  %tbody
+    - unit.captures.each do |u|
+      %tr
+        %td= u.id
+        %td= u.name
+        %td="#{u.to_hexcode }"
+        %td="#{u.to_ascii(manchester=false)}"
+        %td{:style => "width:15%;"}
+          = link_to 'show', u
+          \|
+          = link_to 'Destroy', u, :method => :delete, :data => { :confirm => 'Are you sure?' }
+

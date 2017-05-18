@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Unit:
+  = @capture.unit_id
+%p
+  %b Device:
+  = @capture.device_id
+%p
+  %b Name:
+  = @capture.name
+%p
+  %b Notes:
+  = @capture.notes
+%p
+  %b Binary:
+  = @capture.binary
+%p
+  %b Original binary:
+  = @capture.original_binary
+
+= link_to 'Edit', edit_capture_path(@capture)
+\|
+= link_to 'Back', captures_path

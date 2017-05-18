@@ -1,0 +1,141 @@
+- if @myprofile
+	%table.table.table-bordered.table-hover
+		%tr
+			%th{style:'width:20%;'} Name
+			%td= @profile.full_name
+		
+		%tr
+			%th Email Address 
+			%td= "#{@profile.email} - (this is not visible to other users)"
+
+		%tr
+			%th Became a Member 
+			%td= "#{time_ago_in_words(@profile.created_at)} ago"
+
+		%tr
+			%th Sharing your Profile
+			- my_url = root_url + 'profile/' + @profile.id.to_s
+			- link = link_to my_url, my_url
+			%td= "Your profile can be accessed by others at: #{link}".html_safe
+	%br
+              
+              
+	%hr
+	%h4 Submissions - (this is not visible to other users)
+	- if @submissions.any?
+		%table.table.table-bordered.table-hover
+			%tr
+				%th{style:'width:20%;'} ADB ID
+				%th.visible-lg.visible-md Title 
+				%th.visible-lg.visible-md Description 
+				%th Status 
+				%th Submitted 
+				%th Interactions
+
+			%tr
+			-@submissions.each do |s|
+				%tr
+					%td= s.adb_id
+					%td.visible-lg.visible-md= s.title
+					%td.visible-lg.visible-md= s.description
+					%td= s.status.titleize
+					%td= "#{time_ago_in_words(s.created_at)} ago"
+					-if s.advisory_comments.count > 0
+						%td
+							= "#{s.advisory_comments.count} - "
+							= link_to 'View', "/submission/#{s.adb_id}/interactions"
+					-else
+						%td= "#{s.advisory_comments.count}"
+
+
+
+	-else 	
+		None
+
+	%hr
+	%h4 
+		Published Advisories
+
+		%span.badge{style:"float:right;font-size:16px;"}= @advisories.count
+	- if @advisories.any?
+
+		%table.table.table-striped.table-bordered
+			%thead
+				%tr
+					%th ADB ID  
+					%th Submitted
+					%th.visible-lg.visible-md Category    
+					%th Title
+					%th{style:'text-align:center;'} ADBS
+
+			%tbody
+				- @advisories.each do |advisory|
+					%tr
+						%td{style:'width:170px;'}= link_to advisory.adb_id,advisory
+						%td= "#{time_ago_in_words(advisory.created_at)} ago"
+						%td.visible-lg.visible-md= advisory.category.try(:name)
+						%td= advisory.title
+						%td{style:'text-align:center;'}
+							%p
+								- if advisory.score
+									- if advisory.score < 5
+										%span.label.label-success{style:'font-size:100%;'}= "ADBS: #{advisory.score}"
+									- if advisory.score >= 5 && advisory.score < 7
+										%span.label.label-warning{style:'font-size:100%;'}= "ADBS: #{advisory.score}"
+									- if advisory.score >= 7
+										%span.label.label-danger{style:'font-size:100%;'}= "ADBS: #{advisory.score}"
+						/ ADD CVE to model also add notion of production category
+	- else
+		None
+
+
+
+- else
+	%h3= @profile.full_name
+
+	%table.table.table-bordered.table-hover
+		%tr
+			%th{style:'width:20%;'} Name
+			%td= @profile.full_name
+
+		%tr
+			%th Became a Member 
+			%td= "#{time_ago_in_words(@profile.created_at)} ago"
+
+	%hr
+
+	%h4 
+		Published Advisories
+		%span.badge{style:"float:right;font-size:16px;"}= @advisories.count
+	- if @advisories.any?
+
+		
+		
+		%table.table.table-striped.table-bordered
+			%thead
+				%tr
+					%th ADB ID  
+					%th Submitted
+					%th.visible-lg.visible-md Category    
+					%th Title
+					%th{style:'text-align:center;'} ADBS
+
+			%tbody
+				- @advisories.each do |advisory|
+					%tr
+						%td{style:'width:170px;'}= link_to advisory.adb_id,advisory
+						%td= "#{time_ago_in_words(advisory.created_at)} ago"
+						%td.visible-lg.visible-md= advisory.category.try(:name)
+						%td= advisory.title
+						%td{style:'text-align:center;'}
+							%p
+								- if advisory.score
+									- if advisory.score < 5
+										%span.label.label-success{style:'font-size:100%;'}= "ADBS: #{advisory.score}"
+									- if advisory.score >= 5 && advisory.score < 7
+										%span.label.label-warning{style:'font-size:100%;'}= "ADBS: #{advisory.score}"
+									- if advisory.score >= 7
+										%span.label.label-danger{style:'font-size:100%;'}= "ADBS: #{advisory.score}"
+						/ ADD CVE to model also add notion of production category
+	- else
+		None

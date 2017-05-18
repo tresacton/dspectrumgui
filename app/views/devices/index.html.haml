@@ -1,0 +1,40 @@
+%div.container-fluid
+  %div.row
+    %div.col-lg-12
+      %h3
+        Devices
+      %p A device is effectively a category. It should have at least one unit. If you have multiple units of the same type (e.g. 3 identical garage door remotes), they are best represented as multiple units of the same device.
+      %br
+
+
+
+
+    %table.table.table-bordered.table-hover
+      %thead
+        %tr.bg-primary
+          %th Name
+          %th FCC ID
+          %th Modulation
+          %th Encoding
+          %th Baudrate
+          %th Frequency
+          %th Notes
+          %th
+
+      %tbody
+        - @devices.each do |device|
+          %tr
+            %td= link_to device.name, device
+            %td= device.fcc_id
+            %td= device.modulation
+            %td= device.encoding
+            %td= device.baudrate
+            %td= device.frequency
+            %td= device.notes.truncate(100)
+            %td
+              = link_to 'Edit', edit_device_path(device)
+              = link_to 'Destroy', device, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Device', new_device_path

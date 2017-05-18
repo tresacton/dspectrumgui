@@ -1,0 +1,43 @@
+!!!
+%html
+  %head
+    = render 'favicon'
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+    %title= content_for?(:title) ? yield(:title) : '/dspectrum/'
+
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'bootstrap.min'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    %header
+      = render 'layouts/navigation'
+    %main{:role => "main",style:"padding-top:35px;"}
+      #banner.page-header
+        .row
+          .col-lg-4
+          %br
+          %br
+        
+          %br
+          .col-sm-2
+            .list-group.table-of-contents.navbar-collapse
+              -if current_user.present?
+                %a.list-group-item{:style => "background-color:black;color:white;"}= "Welcome, #{current_user.full_name}"
+
+                =link_to("Devices", devices_path, :class => "a list-group-item", :style => "background-color:black;")
+
+
+                =link_to("About", '/about', :class => "a list-group-item", :style => "background-color:black;")
+
+
+
+              -else
+                %a.list-group-item{:style => "background-color:black;",:href => new_user_registration_path, :style => "background-color:black;"} Create an account
+                %a.list-group-item{:style => "background-color:black;",:href => new_session_path('user'), :style => "background-color:black;"} Log in
+              - if @current_user.present? || current_user.present?
+                =link_to("Logout", destroy_user_session_path, :method => :delete, :class => "a list-group-item", :style => "background-color:black;")
+
+          .col-lg-8.col-md-7.col-sm-6
+            = render 'layouts/messages'
+            = yield 

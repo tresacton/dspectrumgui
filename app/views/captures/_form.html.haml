@@ -1,0 +1,18 @@
+= simple_form_for(@capture) do |f|
+  = f.error_notification
+
+  = f.hidden_field :device_id
+  = f.hidden_field :unit_id
+  = f.hidden_field :original_binary
+
+  .form-group
+    %label.col-lg-2.control-label{:for => "inputEmail"} Name
+    .col-lg-10
+      = f.input :name, label: false, input_html: { class: 'form-control' }
+      %br
+
+
+  .form-group
+    .col-lg-10.col-lg-offset-2
+      /-#%button.btn.btn-default{:type => "reset"} Cancel
+      %button.btn.btn-primary{:type => "submit"} Submit

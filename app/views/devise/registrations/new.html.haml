@@ -1,0 +1,45 @@
+
+%h3 Sign Up
+
+%div.row
+	%div.col-lg-8
+		= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| 
+			= f.error_notification 
+			= devise_error_messages!
+			%table.table.table-bordered{style:'width:57%;'}
+				%tbody
+					%tr{style:''}
+						%th{style:"width:30%;padding-top:10px;padding-left:10px;padding-bottom:10px;"} Name
+						%td{style:"color:black;width:20%;padding:10px;"}
+							= f.text_field :full_name, required: true, autofocus: true, label: false, size: 40
+					%tr
+						%th{style:"width:30%;padding-top:10px;padding-left:10px;padding-bottom:10px;"} Email
+						%td{style:"color:black;padding:10px;"}= f.text_field :email, required: true, label: false, size: 40
+					%tr
+						%th{style:"width:30%;padding-top:10px;padding-left:10px;padding-bottom:10px;"} Password
+						%td{style:"color:black;padding:10px;"}= f.password_field :password, required: true, label: false, autocomplete: false, size: 40
+					%tr
+						%th{style:"width:30%;padding-top:10px;padding-left:10px;padding-bottom:10px;"} Password Confirmation
+						%td{style:"color:black;padding:10px;"}= f.password_field :password_confirmation, label: false, required: true, size: 40 
+		 
+
+			%div.row{style:'padding-top:20px;'}
+				%div.col-lg-6
+					= f.button :submit, "Submit", :class => "btn btn-primary" 
+				%div.col-lg-3.form-action{style:'padding-top:5px;'}
+					= render "devise/shared/links" 
+				%div.col-lg-4{style:'padding-top:5px;'}
+
+	%div.col-lg-4
+
+		%strong Things you need to know:
+		%ul
+		%li Registration is required to access challenge information and to allow you to check your challenge solutions. 
+		%li We won't email you or give your email address to others. Other participants will not see your email address in the application interface. If you're super concerned, use a fake email address (just make sure you remember it for today).
+		%li This app is hosted in a VM, which will be reset at the end of today. So the data within will be destroyed or de-anonymised.
+		%li{:style => "color:red;"} OBLIGATORY DISCLAIMER: Neither myself (Très Acton), or the Platypus hosts, condone criminal activity. By registering, you agree that you will not interpret the simulation challenges as instructions or suggestions to break any state or federal laws. I'm no legal expert, but "I learned it at a hacker con" is probably not going to be a suitable defence if you break into someone's garage without the proper owner's consent... 
+
+
+
+ 
+
