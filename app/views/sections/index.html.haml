@@ -49,6 +49,11 @@
     / =render "manchester_analysis", unit: @unit
     =render "sections", sections: @sections
     =render "pwm_analysis", device: @device, without_baseline: @without_baseline
+
+
+
+
+
     / =render "raw_analysis", unit: @unit
 
     / # change raw so only shows if no encoding
@@ -109,6 +114,7 @@
             %br
             %br
 
+      =render "section_transformations", device: @device, captures: @device.units.map(&:captures).flatten, without_baseline: @without_baseline
 
   %br
 

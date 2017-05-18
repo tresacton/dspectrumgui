@@ -1,0 +1,37 @@
+%div.col-lg-12
+  %hr
+  %h4 Transformation Scratchpad
+
+  /# %p The longest binary string is used as the comparison baseline (B) below
+  %br
+  / -`inspectrum`
+
+
+  - @sections.each do |section|
+    %h5= section.name
+    %table.table.table-hover.table-bordered{style:'background-color:black;'}
+      %thead
+        %tr
+          %th{:style => "color:grey;"} Capture
+          %th{:style => "color:grey;"} Binary
+          %th{:style => "color:grey;"} Decimal
+          %th{:style => "color:grey;"} Flipped Decimal
+      %tbody
+
+        - captures.each do |capture|
+          %tr
+            %th{style:"background-color:#{section.colour};"}
+              = capture.name
+            %td{:style=>"min-width:200px;"}
+              - b=capture.pwm_decode_7525
+              - section_binary = b[section.start_pos..section.end_pos]
+              = section_binary
+            %td
+              = section_binary.to_i(2)
+            %td
+              = section_binary.gsub("1","one").gsub("0","zero").gsub("zero","1").gsub("one",'0').to_i(2)
+
+  %br
+
+
+
