@@ -2,7 +2,7 @@
   - if device.could_be_pwm?
     %div.col-lg-12
       %hr
-      %h4 PWM Bit Position Analysis Tool (66/33)
+      %h4 PWM Bit Position Analysis Tool (66/33) - with Sections
 
       %p The longest binary string is used as the comparison baseline (B) below
       %br
@@ -22,7 +22,13 @@
           %tr
             %th
             -baseline.flatten.each_with_index do |it,index|
-              %th{:style => "color:grey;"}= index
+              - section_bits = []
+              - device.sections.each do |section|
+                -if section.section_range.member? index
+                  - section_bits << index
+                  %th{:style => "color:white;background:#{section.colour}"}= index
+              -if section_bits.exclude? index
+                %th{:style => "color:white;"}= index
         %tbody
 
           - x.each do |barray|
