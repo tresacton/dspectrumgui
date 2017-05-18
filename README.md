@@ -56,6 +56,7 @@ rails c
 u = User.last
 u.email = "you@somewhere.com"
 u.password = u.password_confirmation = "YourSecurePassword"
+u.full_name = "Earthling"
 u.save!
 ```
 
