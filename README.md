@@ -5,7 +5,7 @@ The goal of this app is to make it trivial to demodulate common RF signals, and 
 
 == INSTALLATION (Instructions tested on Kali Rolling 2.0 - may be slightly different for other Operating Systems)
 
-```
+```bash
 # Installing RVM & Ruby 2.2.2
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 \curl -sSL https://get.rvm.io | bash
@@ -48,7 +48,7 @@ Password: password
 
 To change them:
 
-```
+```bash
 cd dspectrumgui
 rails c
 u = User.last
