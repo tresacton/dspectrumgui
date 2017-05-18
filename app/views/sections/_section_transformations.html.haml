@@ -21,7 +21,11 @@
         - captures.each do |capture|
           %tr
             %th{style:"background-color:#{section.colour};"}
+              = capture.unit.name
+              %br
               = capture.name
+              %br
+              = "id: #{capture.id}"
             %td{:style=>"min-width:200px;"}
               - b=capture.pwm_decode_7525
               - section_binary = b[section.start_pos..section.end_pos]
