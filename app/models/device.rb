@@ -13,7 +13,6 @@ class Device < ActiveRecord::Base
 
   def could_be_pwm_7525?
     captures.map(&:valid_pwm_7525?).any?
-
   end
 
 

@@ -28,6 +28,8 @@
           - x.each do |barray|
             %tr
               %td
+                = link_to "#{barray.unit.name}: ",barray.unit, :style => "color:#2a9fd6;"
+                %br
                 = barray.name
               - barray.pwm_decode.scan(/\w/).each_with_index do |b, index|
                 - if b == baseline[index]
@@ -79,6 +81,8 @@
           - x.each do |barray|
             %tr
               %td
+                = link_to "#{barray.unit.name}: ",barray.unit, :style => "color:#2a9fd6;"
+                %br
                 = barray.name
               - barray.pwm_decode_7525.scan(/\w/).each_with_index do |b, index|
                 - if b == baseline[index]
