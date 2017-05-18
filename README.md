@@ -30,6 +30,7 @@ sudo make install
 
 git clone https://github.com/tresacton/dspectrumgui.git
 cd dspectrumgui
+rvm use 2.2.2
 bundle
 rake db:setup && rake db:migrate && rake db:seed
 
