@@ -9,6 +9,25 @@
 
       %div.col-lg-12{:style=>" max-width:700px;"}
         .well.well-lg{:style=>" max-width:700px;"}
+
+          %h5 Generation Configuration
+          - params.to_a.each do |p|
+            - if p[0].include? "section"
+              - sect_id = p[0].gsub("section_","")
+              - s = Section.find(sect_id)
+              - c = Capture.find(p[1])
+              - d = c.unit.device
+              %p{:style=>" max-width:500px; word-wrap:break-word;"}
+                %span= "Section: "
+                %span{:style=>" color:white;"}= "#{s.name} "
+                %span= "(bits #{s.start_pos} to #{s.end_pos})"
+                %span= "from: "
+                %span{:style=>" color:white;"}= "#{c.unit.name}" 
+                %span= " - "
+                %span{:style=>" color:white;"}= "#{c.name}"
+                 
+          %br
+          %hr
           %h5 Binary (Original Format)
           -bin = ""
           -type = ""
