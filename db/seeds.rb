@@ -2,4 +2,3 @@ User.create(:email => "user@example.com",:password => "password", :password_conf
 
 puts User.count
 
-puts "hi"
