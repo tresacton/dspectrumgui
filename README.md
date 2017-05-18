@@ -16,7 +16,7 @@ Step by step instructions for Kali Linux (Debian based OS) are available in the 
 * Reverse Engineering Worksheet to help you visualise the packet structure and comment on sections of the signal
 * Binary Generation for RFCat transmission (currently only supports PWM 77/25, support is currently being added for other modulation types)
 
-# Support Modulation/Encoding
+# Supported Modulation/Encoding
 * Pulse-width Modulation (PWM) - 77/25 duty cycle version, and 66/33 duty cycle version
 * Frequency Shift Keying (2FSK) - (though the app will treat it as OOK)
 * On-off Keying (OOK) / Amplitude Shift Keying (ASK)
