@@ -196,7 +196,6 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
-    pg (0.18.4)
     polyamorous (1.3.0)
       activerecord (>= 3.0)
     pry (0.10.3)
@@ -386,7 +385,6 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   launchy
-  pg
   pry
   puma
   quiet_assets
@@ -420,4 +418,4 @@ RUBY VERSION
    ruby 2.2.2p95
 
 BUNDLED WITH
-   1.13.3
+   1.14.6

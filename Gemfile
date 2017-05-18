@@ -64,7 +64,7 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'haml-rails'
 gem 'high_voltage'
-gem 'pg'
+# gem 'pg'
 gem 'simple_form'
 gem 'upmin-admin'
 
