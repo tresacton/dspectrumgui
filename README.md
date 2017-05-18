@@ -16,6 +16,12 @@ Step by step instructions for Kali Linux (Debian based OS) are available in the 
 * Reverse Engineering Worksheet to help you visualise the packet structure and comment on sections of the signal
 * Binary Generation for RFCat transmission (currently only supports PWM 77/25, support is currently being added for other modulation types)
 
+# Support Modulation/Encoding
+* Pulse-width Modulation (PWM) - 77/25 duty cycle version, and 66/33 duty cycle version
+* Frequency Shift Keying (2FSK) - (though the app will treat it as OOK)
+* On-off Keying (OOK) / Amplitude Shift Keying (ASK)
+* Manchester encoding (both "G. E. Thomas" format, and "IEE 802" format)
+
 # Usage
 The wiki will be updated as I have time. In the interim, there's a high-level PDF guide I developed for a workshop which demonstrates the basic use of this application. It's available here: <https://github.com/tresacton/dspectrumgui/raw/master/public/DSpectrumGUI%20%E2%80%93%20Reverse%20Engineering%20Guide.pdf>
 
