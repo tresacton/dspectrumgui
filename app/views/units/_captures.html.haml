@@ -12,10 +12,11 @@
         %td= u.id
         %td= u.name
 
-        %td
-          - u.original_binary.scan(/.{1,40}/).each do |s|
-            ="#{s}"
-            %br
+        %td{:style=>"max-width:200px; word-wrap:break-word;"}
+          / - u.original_binary.scan(/.{1,40}/).each do |s|
+          /   ="#{s}"
+          /   %br
+          = u.original_binary
         %td{:style => "width:15%;"}
           = link_to 'Destroy', u, :method => :delete, :data => { :confirm => 'Are you sure?' }
           %div.col-lg-12

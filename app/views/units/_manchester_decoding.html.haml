@@ -21,7 +21,7 @@
       %tr
         %td= u.id
         %td= u.name
-        %td
+        %td{:style=>"word-wrap:break-word;"}
           - if u.valid_manchester?
             %p{:style => "color:green;"}= "#{u.valid_manchester? human=true}"
           - else
@@ -31,8 +31,8 @@
           - manchester.scan(/.{1,40}/).each do |s|
             ="#{s}"
             %br
-        %td="#{u.to_hexcode manchester}"
-        %td="#{u.bin_to_ascii(manchester)}"
+        %td{:style=>"word-wrap:break-word;"}="#{u.to_hexcode manchester}"
+        %td{:style=>"word-wrap:break-word;"}="#{u.bin_to_ascii(manchester)}"
 
         %td{:style => "width:15%;"}
           = link_to 'show', u

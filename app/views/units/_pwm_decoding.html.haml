@@ -25,13 +25,13 @@
             %p{:style => "color:green;"}= "#{u.valid_pwm? human=true}"
           - else
             %p{:style => "color:red;"}= "#{u.valid_pwm? human=true}"
-        %td
+        %td{:style=>"word-wrap:break-word;"}
           - pwm = (pwm_format.blank? ?  u.pwm_decode : u.flip(u.pwm_decode))
           - pwm.scan(/.{1,40}/).each do |s|
             ="#{s}"
             %br
-        %td="#{u.to_hexcode pwm}"
-        %td="#{u.bin_to_ascii(pwm)}"
+        %td{:style=>"word-wrap:break-word;"}="#{u.to_hexcode pwm}"
+        %td{:style=>"word-wrap:break-word;"}="#{u.bin_to_ascii(pwm)}"
 
         %td{:style => "width:15%;"}
           = link_to 'show', u
@@ -69,14 +69,14 @@
             %p{:style => "color:green;"}= "#{u.valid_pwm_7525? human=true}"
           - else
             %p{:style => "color:red;"}= "#{u.valid_pwm_7525? human=true}"
-        %td
+        %td{:style=>"word-wrap:break-word;"}
           - pwm = (pwm_format.blank? ?  u.pwm_decode_7525 : u.flip(u.pwm_decode_7525))
           
           - pwm.scan(/.{1,40}/).each do |s|
             ="#{s}"
             %br
-        %td="#{u.to_hexcode pwm}"
-        %td="#{u.bin_to_ascii(pwm)}"
+        %td{:style=>"word-wrap:break-word;"}="#{u.to_hexcode pwm}"
+        %td{:style=>"word-wrap:break-word;"}="#{u.bin_to_ascii(pwm)}"
 
         %td{:style => "width:15%;"}
           = link_to 'show', u

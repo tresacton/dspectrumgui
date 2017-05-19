@@ -13,8 +13,8 @@
       %tr
         %td= u.id
         %td= u.name
-        %td="#{u.to_hexcode }"
-        %td="#{u.to_ascii(manchester=false)}"
+        %td{:style=>"word-wrap:break-word;"}="#{u.to_hexcode }"
+        %td{:style=>"word-wrap:break-word;"}="#{u.to_ascii(manchester=false)}"
         %td{:style => "width:15%;"}
           = link_to 'show', u
           \|
