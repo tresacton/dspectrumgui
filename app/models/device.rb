@@ -15,5 +15,19 @@ class Device < ActiveRecord::Base
     captures.map(&:valid_pwm_7525?).any?
   end
 
+  def format_frequency
+    number_of_decimals = decimals(frequency)
+    pad = 6 - number_of_decimals
+    frequency.to_s.gsub(".","") + ("0"*pad)
+  end
+
+  def decimals(a)
+    num = 0
+    while(a != a.to_i)
+        num += 1
+        a *= 10
+    end
+    num   
+end
 
 end

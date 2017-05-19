@@ -1,12 +1,13 @@
 %div.container-fluid
   %div.row
     %div.col-lg-12
-      %h3
-        Generated Binary:
-      %br
-
-
       %div.col-lg-12{:style=>" max-width:700px;"}
+        %h3{:style => "padding-left:3px;"}
+          Generated Binary
+        %br
+
+        -device = nil
+
         .well.well-lg{:style=>" max-width:700px;"}
 
           %h5 Generation Configuration
@@ -15,7 +16,7 @@
               - sect_id = p[0].gsub("section_","")
               - s = Section.find(sect_id)
               - c = Capture.find(p[1])
-              - d = c.unit.device
+              - d = device = c.unit.device
               %p{:style=>" max-width:500px; word-wrap:break-word;"}
                 %span= "Section: "
                 %span{:style=>" color:white;"}= "#{s.name} "
@@ -26,8 +27,10 @@
                 %span{:style=>" color:white;"}= "#{c.name}"
                  
           %br
-          %hr
-          %h5 Binary (Original Format)
+        .well.well-lg{:style=>" max-width:700px;"}
+          %h4 Original Format
+          %br
+          %h5 Binary 
           -bin = ""
           -type = ""
           - params.to_a.each do |p|
@@ -61,7 +64,17 @@
           %br
           %br
           %hr
-          %h5 Binary (OOK Format - Single)
+          %h5 RFCat 
+          =render "rfcat_config", device: device
+          %p{:style=>" max-width:500px; word-wrap:break-word;"}= "d.RFxmit(\"#{Capture.to_hexcode bin}\")" 
+          %br
+          %p="# or if you need to repeat the packet:"
+          %p{:style=>" max-width:500px; word-wrap:break-word;"}= "d.RFxmit(\"\\x00\\x00\\x00\\x00#{Capture.to_hexcode bin}\" * 5)" 
+
+        .well.well-lg{:style=>" max-width:700px;"}
+          %h4  OOK Format - Single
+          %br
+          %h5 Binary
           - ook_bin = ""
           // CHECK MODULATION
           - if type == "pwm7525"
@@ -91,38 +104,19 @@
           %br
           %br
           %hr
-          %h5 Binary (OOK Format - Repeated 5x with 4 bits of padding)
-          - ook_bin_rep = ""
-          // CHECK MODULATION
-          - if type == "pwm7525"
-            -bin.scan(/./).each do |bit|
-              - ook_bin_rep << "1110" if bit.to_s == '1'
-              - ook_bin_rep << "1000" if bit.to_s == '0'
-          - elsif type == "pwm"
-            -bin.scan(/./).each do |bit|
-              - ook_bin << "110" if bit.to_s == '1'
-              - ook_bin << "100" if bit.to_s == '0'
-          - elsif type == "manchester"
-            -bin.scan(/./).each do |bit|
-              - ook_bin << "10" if bit.to_s == '1'
-              - ook_bin << "01" if bit.to_s == '0'
-          - elsif type == "ook"
-            -ook_bin << bin
-
-          - ook_bin_rep < "0000"
-          %p{:style=>" max-width:500px; word-wrap:break-word;"}= ook_bin_rep = ook_bin_rep*5
+          %h5 RFCat 
+          =render "rfcat_config", device: device
+          %p{:style=>" max-width:500px; word-wrap:break-word;"}= "d.RFxmit(\"#{Capture.to_hexcode ook_bin}\")" 
           %br
-          %span="Size: "
-          %span= ook_bin_rep.size
-          %span="bits "
+          %p="# or if you need to repeat the packet:"
+          %p{:style=>" max-width:500px; word-wrap:break-word;"}= "d.RFxmit(\"\\x00\\x00\\x00\\x00#{Capture.to_hexcode ook_bin}\" * 5)" 
 
 
-          %br
-          %br
-          %hr
-          =link_to "Return to Worksheet", :back, :style => "color:#2a9fd6;"
 
   %br
+
+
+
 
 -#Vertical text style for TH
 -#%th{:style => "color:grey;-webkit-transform: rotate(-90deg);-moz-transform: rotate(-90deg);-ms-transform: rotate(-90deg);-o-transform: rotate(-90deg);filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);color: #FFF;text-transform: uppercase;"} 0

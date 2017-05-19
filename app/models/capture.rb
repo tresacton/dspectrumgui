@@ -210,4 +210,12 @@ class Capture < ActiveRecord::Base
     end
   end
 
+  def self.to_hexcode bin
+    hex = ''
+    f_hex = '\x'
+    hex << '%02x' % bin.to_i(2)
+    f_hex << hex.scan(/.{2}|.+/).join('\x')
+    f_hex
+  end
+
 end
