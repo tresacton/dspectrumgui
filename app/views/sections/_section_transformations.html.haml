@@ -27,7 +27,14 @@
               %br
               = "id: #{capture.id}"
             %td{:style=>"min-width:200px;"}
-              - b=capture.pwm_decode_7525
+              - if device.could_be_pwm_7525?
+                - b=capture.pwm_decode_7525
+              - if device.could_be_pwm?
+                - b=capture.pwm_decode
+              - if device.could_be_manchester?
+                - b=capture.manchester_decode
+              - else
+                - b=capture.original_binary
               - section_binary = b[section.start_pos..section.end_pos]
               = section_binary
             %td
