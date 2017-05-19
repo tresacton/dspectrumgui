@@ -1,57 +1,61 @@
 - if device.units.map(&:captures).flatten.any?
-  %div.col-lg-12
-    %hr
-    %h4 Analysis Helper
-    %p The longest binary string is used as the comparison baseline (B)
-    %br
-    / -`inspectrum`
+  - vanilla = true
+  - if device.could_be_pwm? || device.could_be_pwm_7525? || device.could_be_manchester?
+    - vanilla = false
+  - if vanilla 
+    %div.col-lg-12
+      %hr
+      %h4 Analysis Helper
+      %p The longest binary string is used as the comparison baseline (B)
+      %br
+      / -`inspectrum`
 
-    %table.table.table-hover.table-bordered{style:'background-color:black;'}
-      - x1 = device.units.map(&:captures).flatten.each
-      - device.units.map(&:captures).flatten.each do |c|
-        - c.update_attribute(:binary, c.original_binary) if c.binary.blank?
-      - x = x1.sort_by {|y|y.original_binary.scan(/\w/).count}
-      - baseline = x.last.original_binary.scan(/\w/)
-      - x.each do |xx|
-        - diff = baseline.count - xx.original_binary.scan(/\w/).count
-        - xx.binary = xx.original_binary
-        - if diff > 0
-          - diff.times do |i|
-            - xx.binary = xx.binary << 'p'
-      %thead
-        %tr
-          %th
-          -baseline.flatten.each_with_index do |it,index|
-            - section_bits = []
-            - device.sections.each do |section|
-              -if section.section_range.member? index
-                - section_bits << index
-                %th{:style => "color:white;background:#{section.colour}"}= index
-            -if section_bits.exclude? index
-              %th{:style => "color:white;"}= index
-      %tbody
-
-        - x.each do |barray|
+      %table.table.table-hover.table-bordered{style:'background-color:black;'}
+        - x1 = device.units.map(&:captures).flatten.each
+        - device.units.map(&:captures).flatten.each do |c|
+          - c.update_attribute(:binary, c.original_binary) if c.binary.blank?
+        - x = x1.sort_by {|y|y.original_binary.scan(/\w/).count}
+        - baseline = x.last.original_binary.scan(/\w/)
+        - x.each do |xx|
+          - diff = baseline.count - xx.original_binary.scan(/\w/).count
+          - xx.binary = xx.original_binary
+          - if diff > 0
+            - diff.times do |i|
+              - xx.binary = xx.binary << 'p'
+        %thead
           %tr
-            %td
-              = link_to "#{barray.unit.name}: ",barray.unit, :style => "color:#2a9fd6;"
-              = barray.name
-            - barray.binary.scan(/\w/).each_with_index do |b, index|
-              - if b == baseline[index]
-                - if b != 'p'
-                  %td.text-success= b
-                - else
-                  %td
-              -else
-                - if b != 'p'
-                  %td.text-danger= b
-                - else
-                  %td
-        %td{style:"text-align:center;"} B
-        -baseline.each do |b|
-          - if b != 'p'
-            %td.text-primary= b
-          - else
-            %td
+            %th
+            -baseline.flatten.each_with_index do |it,index|
+              - section_bits = []
+              - device.sections.each do |section|
+                -if section.section_range.member? index
+                  - section_bits << index
+                  %th{:style => "color:white;background:#{section.colour}"}= index
+              -if section_bits.exclude? index
+                %th{:style => "color:white;"}= index
+        %tbody
 
-    %br
+          - x.each do |barray|
+            %tr
+              %td
+                = link_to "#{barray.unit.name}: ",barray.unit, :style => "color:#2a9fd6;"
+                = barray.name
+              - barray.binary.scan(/\w/).each_with_index do |b, index|
+                - if b == baseline[index]
+                  - if b != 'p'
+                    %td.text-success= b
+                  - else
+                    %td
+                -else
+                  - if b != 'p'
+                    %td.text-danger= b
+                  - else
+                    %td
+          %td{style:"text-align:center;"} B
+          -baseline.each do |b|
+            - if b != 'p'
+              %td.text-primary= b
+            - else
+              %td
+
+      %br
