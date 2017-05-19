@@ -215,6 +215,11 @@ class Capture < ActiveRecord::Base
     f_hex = '\x'
     hex << '%02x' % bin.to_i(2)
     f_hex << hex.scan(/.{2}|.+/).join('\x')
+    
+
+    if f_hex.split("\\x").last.size == 1
+      f_hex << "0"
+    end
     f_hex
   end
 

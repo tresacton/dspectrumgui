@@ -63,16 +63,9 @@
           %span="bits "
           %br
           %br
-          %hr
-          %h5 RFCat 
-          =render "rfcat_config", device: device
-          %p{:style=>" max-width:500px; word-wrap:break-word;"}= "d.RFxmit(\"#{Capture.to_hexcode bin}\")" 
-          %br
-          %p="# or if you need to repeat the packet:"
-          %p{:style=>" max-width:500px; word-wrap:break-word;"}= "d.RFxmit(\"\\x00\\x00\\x00\\x00#{Capture.to_hexcode bin}\" * 5)" 
 
         .well.well-lg{:style=>" max-width:700px;"}
-          %h4  OOK Format - Single
+          %h4  OOK Format 
           %br
           %h5 Binary
           - ook_bin = ""
