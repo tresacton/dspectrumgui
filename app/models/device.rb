@@ -15,6 +15,24 @@ class Device < ActiveRecord::Base
     captures.map(&:valid_pwm_7525?).any?
   end
 
+  def update_modulation
+    if modulation.blank? && encoding.blank?
+      if could_be_pwm?
+        update_attribute(:modulation,"PWM")
+        update_attribute(:encoding,"66/33")
+      elsif could_be_pwm_7525?
+        update_attribute(:modulation,"PWM")
+        update_attribute(:encoding,"75/25")
+      elsif could_be_manchester?
+        update_attribute(:modulation,"OOK")
+        update_attribute(:encoding,"Manchester")
+      else
+        update_attribute(:modulation,"OOK")
+        update_attribute(:encoding,"n/a")
+      end
+    end
+  end
+
   def format_frequency
     number_of_decimals = decimals(frequency)
     pad = 6 - number_of_decimals
@@ -28,6 +46,6 @@ class Device < ActiveRecord::Base
         a *= 10
     end
     num   
-end
+  end
 
 end

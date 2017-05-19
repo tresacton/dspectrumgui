@@ -4,6 +4,7 @@
       %h3
         Device:
         = @device.name
+        - @device.update_modulation
       %p A device is effectively a category. It should have at least one unit. If you have multiple units of the same type (e.g. 3 identical garage door remotes), they are best represented as multiple units of the same device.
       %br
 
