@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170515023720) do
+ActiveRecord::Schema.define(version: 20170520033410) do
 
   create_table "captures", force: :cascade do |t|
     t.integer  "unit_id"
@@ -24,6 +24,25 @@ ActiveRecord::Schema.define(version: 20170515023720) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "challenge_attempts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "challenge_id"
+    t.string   "guess"
+    t.boolean  "correct"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "challenges", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "solution"
+    t.string   "filepath"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "scenario_id"
+  end
+
   create_table "devices", force: :cascade do |t|
     t.string   "fcc_id"
     t.string   "baudrate"
@@ -34,6 +53,15 @@ ActiveRecord::Schema.define(version: 20170515023720) do
     t.text     "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "flip_pwm"
+  end
+
+  create_table "scenarios", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "victory_message"
   end
 
   create_table "sections", force: :cascade do |t|
