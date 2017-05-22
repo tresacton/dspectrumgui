@@ -26,6 +26,5 @@ Step by step instructions for Kali Linux (Debian based OS) are available in the 
 The wiki will be updated as I have time. In the interim, there's a high-level PDF guide I developed for a workshop which demonstrates the basic use of this application. It's available here: <https://github.com/tresacton/dspectrumgui/raw/master/public/DSpectrumGUI%20%E2%80%93%20Reverse%20Engineering%20Guide.pdf>
 
 ## License
-Licensing is AGPL by default. An MIT license is available for purchase for commercial use. For a commercial license.
-
+Licensing is AGPL by default. An MIT license is available for purchase for commercial use. 
 
