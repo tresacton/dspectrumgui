@@ -5,7 +5,7 @@ The goal of this app is to make it trivial to demodulate common RF signals, and 
 ![DSpectrumGUI Screenshot](https://raw.githubusercontent.com/tresacton/dspectrumgui/master/public/screenshot.png)
 
 # Installation 
-Step by step instructions for Kali Linux (Debian based OS) are available in the wiki: <https://github.com/tresacton/dspectrumgui/wiki/Installation> 
+Step by step instructions for Kali Linux (Debian based OS), and MAC OSX, are both available in the wiki: <https://github.com/tresacton/dspectrumgui/wiki/Installation> 
 
 
 # Features
