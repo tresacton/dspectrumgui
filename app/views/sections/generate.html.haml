@@ -39,6 +39,7 @@
               - s = Section.find(sect_id)
               - c = Capture.find(p[1])
               - d = c.unit.device
+              - device = d
               // CHECK MODULATION
               - if d.could_be_pwm_7525?
                 - type = "pwm7525"
@@ -70,20 +71,37 @@
           %h5 Binary
           - ook_bin = ""
           // CHECK MODULATION
-          - if type == "pwm7525"
-            -bin.scan(/./).each do |bit|
-              - ook_bin << "1110" if bit.to_s == '1'
-              - ook_bin << "1000" if bit.to_s == '0'
-          - elsif type == "pwm"
-            -bin.scan(/./).each do |bit|
-              - ook_bin << "110" if bit.to_s == '1'
-              - ook_bin << "100" if bit.to_s == '0'
-          - elsif type == "manchester"
-            -bin.scan(/./).each do |bit|
-              - ook_bin << "10" if bit.to_s == '1'
-              - ook_bin << "01" if bit.to_s == '0'
-          - elsif type == "ook"
-            -ook_bin << bin
+          - if device.flip_pwm
+            - if type == "pwm7525"
+              -bin.scan(/./).each do |bit|
+                - ook_bin << "1000" if bit.to_s == '1'
+                - ook_bin << "1110" if bit.to_s == '0'
+            - elsif type == "pwm"
+              -bin.scan(/./).each do |bit|
+                - ook_bin << "100" if bit.to_s == '1'
+                - ook_bin << "110" if bit.to_s == '0'
+            - elsif type == "manchester"
+              -bin.scan(/./).each do |bit|
+                - ook_bin << "01" if bit.to_s == '1'
+                - ook_bin << "10" if bit.to_s == '0'
+            - elsif type == "ook"
+              -ook_bin << bin
+          - else
+            - if type == "pwm7525"
+              -bin.scan(/./).each do |bit|
+                - ook_bin << "1110" if bit.to_s == '1'
+                - ook_bin << "1000" if bit.to_s == '0'
+            - elsif type == "pwm"
+              -bin.scan(/./).each do |bit|
+                - ook_bin << "110" if bit.to_s == '1'
+                - ook_bin << "100" if bit.to_s == '0'
+            - elsif type == "manchester"
+              -bin.scan(/./).each do |bit|
+                - ook_bin << "10" if bit.to_s == '1'
+                - ook_bin << "01" if bit.to_s == '0'
+            - elsif type == "ook"
+              -ook_bin << bin
+
 
 
 

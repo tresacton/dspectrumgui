@@ -36,22 +36,15 @@ class Capture < ActiveRecord::Base
       puts "adding 0"
       puts the_bin
     end
-    if device.flip_pwm == true
-      the_bin.scan(/.../).each do |s|
-        # 100 == 1
-        # 110 == 0
-        symbols << "0" && puts("#{s} is 0") if s.to_i == 110
-        symbols << "1" && puts("#{s} is 1") if s.to_i == 100
-      end
-    else
-      the_bin.scan(/.../).each do |s|
-        # 100 == 0
-        # 110 == 1
-        symbols << "1" && puts("#{s} is 1") if s.to_i == 110
-        symbols << "0" && puts("#{s} is 0") if s.to_i == 100
-      end
+    the_bin.scan(/.../).each do |s|
+      # 100 == 0
+      # 110 == 1
+      symbols << "1" && puts("#{s} is 1") if s.to_i == 110
+      symbols << "0" && puts("#{s} is 0") if s.to_i == 100
     end
-    symbols
+
+
+    symbols = (device.flip_pwm ? (flip symbols) : symbols)
   end
 
   def pwm_decode_7525
@@ -69,7 +62,7 @@ class Capture < ActiveRecord::Base
       symbols << "1" && puts("#{s} is 1") if s.to_i == 1110
       symbols << "0" && puts("#{s} is 0") if s.to_i == 1000
     end
-    symbols
+    symbols = (device.flip_pwm ? (flip symbols) : symbols)
   end
 
 
