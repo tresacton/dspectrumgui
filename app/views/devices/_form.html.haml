@@ -32,6 +32,14 @@
       = f.input :baudrate, label: false, input_html: { class: 'form-control' }
       %br
   .form-group
+    %label.col-lg-2.control-label{:for => "inputPassword"} Flip Decoding Assumption
+    .col-lg-10
+      %span{:style => "float:right;"}
+        = f.input :flip_pwm, label: false, as: :boolean, checked_value: true, unchecked_value: false 
+      %br
+      %br
+      %br
+  .form-group
     %label.col-lg-2.control-label{:for => "notes"} Notes
     .col-lg-10
       = f.input :notes, label: false, type: 'text-area', input_html: { class: 'form-control textArea', rows: 10 }

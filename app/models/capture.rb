@@ -36,11 +36,20 @@ class Capture < ActiveRecord::Base
       puts "adding 0"
       puts the_bin
     end
-    the_bin.scan(/.../).each do |s|
-      # 100 == 0
-      # 110 == 1
-      symbols << "1" && puts("#{s} is 1") if s.to_i == 110
-      symbols << "0" && puts("#{s} is 0") if s.to_i == 100
+    if device.flip_pwm == true
+      the_bin.scan(/.../).each do |s|
+        # 100 == 1
+        # 110 == 0
+        symbols << "0" && puts("#{s} is 0") if s.to_i == 110
+        symbols << "1" && puts("#{s} is 1") if s.to_i == 100
+      end
+    else
+      the_bin.scan(/.../).each do |s|
+        # 100 == 0
+        # 110 == 1
+        symbols << "1" && puts("#{s} is 1") if s.to_i == 110
+        symbols << "0" && puts("#{s} is 0") if s.to_i == 100
+      end
     end
     symbols
   end

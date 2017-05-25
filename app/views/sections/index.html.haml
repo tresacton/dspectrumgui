@@ -31,6 +31,9 @@
             %th.bg-primary Baudrate
             %td= @device.baudrate
           %tr
+            %th.bg-primary Decoding Rules
+            %td= @device.flip_pwm == true ? "Bits flipped after demodulation" : "Bits not flipped (Default State)"
+          %tr
             %th.bg-primary Notes
             %td= @device.notes
 
