@@ -4,6 +4,9 @@ class DashboardController < ApplicationController
 
 
   def about
+  	@version = `git log -n 1 --pretty=format:"%H"`
+    `git fetch`
+  	@count_behind_origin = `git rev-list master..origin/master --count`.to_i
   end
 
 

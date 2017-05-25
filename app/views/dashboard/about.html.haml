@@ -1,10 +1,29 @@
 %div.container-fluid
   %div.row
     %div.col-lg-12
-      %h4 dspectrum  is a .....
+      %h4 DSpectrumGUI 
       %br
-
-
+      %p DSpectrumGUI is a locally hosted web application designed to facilitate the rapid reverse engineering of SDR/RF signals.
+      %hr
+      %h5 Application Status
+      %p= "You are currently running: #{@version}"
+      - if @count_behind_origin == 0
+        %p{:style => "color:dark-green;"}= "This app is up-to-date"
+      - else
+        - message = "This app is #{@count_behind_origin} " + "commit".pluralize(@count_behind_origin) + " behind origin/master. If you'd like to update it, shutdown this server (ctrl-c in the terminal window you launched it from), and type the following commands in your terminal"
+        %p{:style => "color:darkred;"}= message
+        %pre{:style => "white-space: pre-line;background-color:grey;"}
+          cd ~/dspectrum_gui # update this if you've clone DSpectrumGUI somewhere else
+          git fetch
+          git checkout master
+          git pull origin master
+          rvm use 2.2.2
+          rake db:migrate # just incase a change to the database was made
+          %br
+          \# launch the app again
+          rails s -p 3001
+      %br
+      %br
   %p.vanity
     %a="Want to stay in touch? &nbsp;&nbsp;&nbsp;&nbsp;".html_safe
     %a= "-&nbsp;&nbsp;&nbsp;&nbsp;".html_safe 
@@ -12,6 +31,9 @@
     %a{:href => "https://twitter.com/tresacton"}="  @tresacton (on twitter) &nbsp;&nbsp;&nbsp;&nbsp;".html_safe
     %a= "- &nbsp;&nbsp;&nbsp;&nbsp;".html_safe
     %a="@nullwolf (on slack)&nbsp;&nbsp;&nbsp;&nbsp;".html_safe
+
+
+
     / %a 
     /   &copy; AdvisoryDB
     /   =Time.now.year
