@@ -71,6 +71,6 @@ class DevicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:fcc_id, :baudrate, :frequency, :modulation, :encoding, :name, :notes)
+      params.require(:device).permit(:fcc_id, :baudrate, :frequency, :modulation, :encoding, :name, :notes, :flip_pwm)
     end
 end
