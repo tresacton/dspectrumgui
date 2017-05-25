@@ -47,7 +47,7 @@
   .form-group
     %label.col-lg-2.control-label{:for => "colour"} Colour
     .col-lg-10
-      - the_options = options_for_select([['gray', 'gray'], ['blue', 'blue'], ['aqua', 'aqua'], ['cadetblue', 'cadetblue'], ['darkblue', 'darkblue'], ['green', 'green'], ['darkgreen', 'darkgreen'], ['red', 'red'], ['darkred', 'darkred'], ['deeppink', 'deeppink'], ['fuchsia', 'fuchsia'], ['indigo', 'indigo'], ['goldenrod', 'goldenrod']])
+      - the_options = options_for_select([['gray', 'gray'], ['blue', 'blue'], ['aqua', 'aqua'], ['cadetblue', 'cadetblue'], ['darkblue', 'darkblue'], ['green', 'green'], ['darkgreen', 'darkgreen'], ['red', 'red'], ['darkred', 'darkred'], ['deeppink', 'deeppink'], ['fuchsia', 'fuchsia'], ['indigo', 'indigo'], ['goldenrod', 'goldenrod']],@section.colour)
       = f.select :colour, the_options, label: false, input_html: { class: 'form-control' }
       %br
       %br
