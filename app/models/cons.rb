@@ -2,7 +2,6 @@ class Cons
   # this isn't an active record model. it's soley here to help with console commands for usability
 
   def self.live_capture_seed_file device_id, unit_id, capture_name, stop_at_first=false
-     
     first_bin = ""
     last_bin = ""
 
@@ -13,10 +12,10 @@ class Cons
       c = Capture.new
       c.unit_id = u.id
       c.device_id = d.id
-      c.name = "#{capture_name} - #{i+1}"
+      c.name = "#{capture_name}_#{i+1}"
       until !c.new_record?
-        bin = `cat "#{Rails.root}/tmp/test_change.tmp"`
-        if bin.to_s != last_bin
+        bin = `cat "#{Rails.root}/tmp/test_change.tmp"`.gsub("\\n","")
+        if (bin.to_s != last_bin) && (bin.to_s.present?)
           break if (bin.to_s == first_bin) && (stop_at_first == true)
           c.original_binary = bin.to_s
           c.binary = c.original_binary
@@ -24,13 +23,8 @@ class Cons
           last_bin = c.original_binary
         end
       end
-
-
-
-
-
     end
-
   end
+
 
 end
