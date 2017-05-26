@@ -6,9 +6,9 @@
       %p DSpectrumGUI is a locally hosted web application designed to facilitate the rapid reverse engineering of SDR/RF signals.
       %hr
       %h5 Application Status
-      %p= "You are currently running: #{@version}"
+      %p= "You are currently running: #{@tags} || #{@version}"
       - if @count_behind_origin == 0
-        %p{:style => "color:darkgreen;"}= "This app is up-to-date"
+        %p{:style => "color:darkgreen;"}= "This app is up-to-date with master"
       - else
         - message = "This app is #{@count_behind_origin} " + "commit".pluralize(@count_behind_origin) + " behind origin/master. If you'd like to update it, shutdown this server (ctrl-c in the terminal window you launched it from), and type the following commands in your terminal"
         %p{:style => "color:darkred;"}= message
