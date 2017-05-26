@@ -13,6 +13,9 @@
 # user files
 /mcs/*
 
+# github issue template files
+/.github
+
 
 # bundler state
 /.bundle
