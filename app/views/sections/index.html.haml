@@ -45,12 +45,12 @@
           = link_to 'Edit Device', edit_device_path(@device), :style => "color:#2a9fd6;"
 
 
-
     / =render "manchester_analysis", device: @device, without_baseline: @without_baseline
 
 
     / =render "manchester_analysis", unit: @unit
     =render "sections", sections: @sections
+    =render "no_sections", sections: @sections, device: @device
     =render "pwm_analysis", device: @device, without_baseline: @without_baseline
     =render "manchester_analysis", device: @device, without_baseline: @without_baseline
     =render "raw_analysis", device: @device, without_baseline: @without_baseline
@@ -120,6 +120,26 @@
             %br
 
       =render "section_transformations", device: @device, captures: @device.units.map(&:captures).flatten, without_baseline: @without_baseline
+
+
+      - unless @sections.blank?
+        %div.col-lg-12.well.well-lg
+          %h4 Share these sections as a template
+          %p Reverse engineering something that doesn't exist in our template library? Please consider sharing your section template with us all once you've finished reverse engineering this device.
+          = simple_form_for(SectionTemplate.new(:added_by => "anonymous")) do |f|
+            = f.hidden_field :device_id, :value => @device.id
+            /-#%button.btn.btn-default{:type => "reset"} Cancel
+            %label.col-lg-10.control-label{:for => "name"} Template Name (please be descriptive, but concise. E.g. "Generic Remote SC226x")
+            .col-lg-10
+              = f.input :name, label: false, input_html: { class: 'form-control' }
+              %br
+            %label.col-lg-10.control-label{:for => "added_by"} Your Name or Handle (or leave this field unchanged and submit anonymously)
+            .col-lg-10
+              = f.input :added_by, label: false, input_html: { class: 'form-control' }
+              %br
+            .form-group
+              .col-lg-10.col-lg-offset-0
+                %button.btn.btn-primary{:type => "submit"} Share as Template
 
   %br
 

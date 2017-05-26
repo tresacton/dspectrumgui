@@ -1,0 +1,23 @@
+- unless @sections.present?
+  %div.col-lg-12
+    %hr
+    %h4 Sections Defined
+
+    /# %p The longest binary string is used as the comparison baseline (B) below
+    
+    %p No sections have been defined. You can either define your own in the "Define New Section" form (scroll down), or import a section template from the library.
+
+    = simple_form_for(:template, url: device_apply_template_path(:deivce_id => @device_id)) do |f|
+      /-#%button.btn.btn-default{:type => "reset"} Cancel
+      .col-lg-10
+        = f.input :template_id, collection: SectionTemplate.all, label: false, input_html: { class: 'form-control' }
+        %br
+      .form-group
+        .col-lg-10.col-lg-offset-0
+          %button.btn.btn-primary{:type => "submit"} Add sections from template
+    
+
+    
+
+    %br
+

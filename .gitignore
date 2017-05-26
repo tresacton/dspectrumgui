@@ -10,6 +10,10 @@
 # http://github.com/RailsApps/rails-composer/issues
 #----------------------------------------------------------------------------
 
+# user files
+/mcs/*
+
+
 # bundler state
 /.bundle
 /vendor/bundle/
@@ -20,6 +24,7 @@ db/*.sqlite3
 /db/*.sqlite3-journal
 /log/*
 /tmp/*
+
 
 # add /config/database.yml if it contains passwords
 # /config/database.yml

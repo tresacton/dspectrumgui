@@ -15,5 +15,9 @@ class DashboardController < ApplicationController
 
   end
 
+  def contribute
+  	@cont = `cat #{Rails.root.join('mcs', 'contribution.md').to_s}` 
+  end
+
 
 end

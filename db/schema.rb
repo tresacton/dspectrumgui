@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170520033410) do
+ActiveRecord::Schema.define(version: 20170525084143) do
 
   create_table "captures", force: :cascade do |t|
     t.integer  "unit_id"
@@ -62,6 +62,14 @@ ActiveRecord::Schema.define(version: 20170520033410) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "victory_message"
+  end
+
+  create_table "section_templates", force: :cascade do |t|
+    t.string   "name"
+    t.text     "sections"
+    t.string   "added_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sections", force: :cascade do |t|

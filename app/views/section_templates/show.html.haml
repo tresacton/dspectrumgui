@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @section_template.name
+%p
+  %b Sections:
+  = @section_template.sections
+%p
+  %b Added by:
+  = @section_template.added_by
+
+= link_to 'Edit', edit_section_template_path(@section_template)
+\|
+= link_to 'Back', section_templates_path

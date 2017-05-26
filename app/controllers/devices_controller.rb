@@ -1,4 +1,5 @@
 class DevicesController < ApplicationController
+  require 'csv'
   before_action :set_device, only: [:show, :edit, :update, :destroy]
 
   # GET /devices
@@ -61,6 +62,25 @@ class DevicesController < ApplicationController
       format.html { redirect_to :back, notice: 'Device was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def apply_template
+    @device = Device.find params[:device_id]
+    @template = SectionTemplate.find params[:template][:template_id]
+
+    the_csv = CSV.parse(@template.sections, :headers => true, :encoding => 'ISO-8859-1')
+    the_csv.each do |row|
+      s = Section.new
+      s.device_id = @device.id
+      s.start_pos = row['start_pos']
+      s.end_pos = row['end_pos']
+      s.name = row['name']
+      s.notes = row['notes']
+      s.colour = row['colour']
+      s.save
+    end
+    redirect_to :back, :notice => "Successfully imported sections"
+    
   end
 
   private

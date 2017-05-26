@@ -1,4 +1,5 @@
 class Device < ActiveRecord::Base
+  require 'csv'
   has_many :units, dependent: :destroy
   has_many :captures
   has_many :sections
@@ -47,5 +48,29 @@ class Device < ActiveRecord::Base
     end
     num   
   end
+
+  # export a section template
+  def sections_to_csv template_name, added_by
+    column_names = "name", "start_pos", "end_pos", "colour", "notes"
+
+    the_csv = CSV.generate(headers: true) do |csv_text|
+      csv_text << column_names
+      sections.each do |section|
+        csv_text << section.attributes.values_at(*column_names)
+      end
+    end
+    the_csv.gsub('"',"'")
+    open(Rails.root.join('mcs', 'contribution.md').to_s, 'w') {|f|
+      dump = puts the_csv
+      f.puts "```ruby"
+      f.puts "SectionTemplate.find_or_create_by(:name => \"#{template_name}\") do |st|"
+      f.puts "  st.sections = \"#{the_csv}\" "
+      f.puts "  st.added_by = '#{added_by}' "
+      f.puts "end"
+      f.puts "```"
+    }
+
+  end
+
 
 end

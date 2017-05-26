@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
 
 
+  resources :section_templates 
   resources :sections
   resources :captures
   resources :devices
   resources :devices do
+    post 'apply_template' => "devices#apply_template"
     resources :sections 
     resources :units do
       resources :captures do
@@ -37,6 +39,8 @@ Rails.application.routes.draw do
   get '/about', to: 'dashboard#about'
 
   get '/temp', to: 'dashboard#temp'
+
+  get '/contribute', to: 'dashboard#contribute'
 
 
 

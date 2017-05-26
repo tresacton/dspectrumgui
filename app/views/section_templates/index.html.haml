@@ -1,0 +1,25 @@
+%h1 Listing section_templates
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Sections
+      %th Added by
+      %th
+      %th
+      %th
+
+  %tbody
+    - @section_templates.each do |section_template|
+      %tr
+        %td= section_template.name
+        %td= section_template.sections
+        %td= section_template.added_by
+        %td= link_to 'Show', section_template
+        %td= link_to 'Edit', edit_section_template_path(section_template)
+        %td= link_to 'Destroy', section_template, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Section template', new_section_template_path

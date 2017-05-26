@@ -1,40 +1,43 @@
-%div.col-lg-12
-  %hr
-  %h4 Sections Defined
+- if @sections.present?
+  %div.col-lg-12
+    %hr
+    %h4 
+      Sections Defined
+      
 
-  /# %p The longest binary string is used as the comparison baseline (B) below
-  %br
-  / -`inspectrum`
+    /# %p The longest binary string is used as the comparison baseline (B) below
+    %br
+    / -`inspectrum`
 
-  %table.table.table-hover.table-bordered{style:'background-color:black;'}
-    %thead
-      %tr
-        %th{:style => "color:grey;"} Name
-        %th{:style => "color:grey;"} Start Position
-        %th{:style => "color:grey;"} End Position
-        %th{:style => "color:grey;"} Colour
-        %th{:style => "color:grey;"} Notes
-        %th{:style => "color:grey;"}
-    %tbody
-
-      - @sections.each do |section|
+    %table.table.table-hover.table-bordered{style:'background-color:black;'}
+      %thead
         %tr
-          %th{style:"background-color:#{section.colour};"}
-            = section.name
-          %td
-            = section.start_pos
-          %td
-            = section.end_pos
-          %td
-            = section.colour
-          %td
-            = section.notes
-          %td
-            = link_to 'Edit', edit_section_path(section), :style => "color:#2a9fd6;"
-            %br
-            = link_to 'Destroy', section, :method => :delete, :data => { :confirm => 'Are you sure?' }, :style => "color:red;"
+          %th{:style => "color:grey;"} Name
+          %th{:style => "color:grey;"} Start Position
+          %th{:style => "color:grey;"} End Position
+          %th{:style => "color:grey;"} Colour
+          %th{:style => "color:grey;"} Notes
+          %th{:style => "color:grey;"}
+      %tbody
 
-  
+        - @sections.each do |section|
+          %tr
+            %th{style:"background-color:#{section.colour};"}
+              = section.name
+            %td
+              = section.start_pos
+            %td
+              = section.end_pos
+            %td
+              = section.colour
+            %td
+              = section.notes
+            %td
+              = link_to 'Edit', edit_section_path(section), :style => "color:#2a9fd6;"
+              %br
+              = link_to 'Destroy', section, :method => :delete, :data => { :confirm => 'Are you sure?' }, :style => "color:red;"
 
-  %br
+    
+
+    %br
 
