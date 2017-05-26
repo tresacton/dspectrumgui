@@ -29,3 +29,4 @@ The wiki will be updated as I have time. In the interim, there's a high-level PD
 Licensing is AGPL by default. An MIT license is available for purchase for commercial use. 
 
  
+ 
