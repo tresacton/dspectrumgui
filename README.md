@@ -19,6 +19,13 @@ Step by step instructions for Kali Linux (Debian based OS), and MAC OSX, are bot
 * Reverse Engineering Worksheet to help you visualise the packet structure and comment on sections of the signal
 * Binary Generation for RFCat transmission
 
+# How does it work?
+Once you have created a new "Device" and "Unit", you can click the link "Add New Capture". The application will then spawn an instance of Inspectrum. Once you've appropriately adjusted your symbol/grid overlay in Inspectrum, and asked it to "extract symbols", DSpectrumGUI will then convert that data into a binary string and attempt to automatically demodulate/decode it for you. It also provides a database for you to store pertinent information such as the frequency, baudrate, and FCC ID of the device for your future reference.
+
+When you have some demodulated signals and navigate to the "Reverse Engineering Worksheet" for the device, DSpectrumGUI will present you with a form that allows you to define your own definitions for each section of the data (e.g. marking the first 'n' bits as the Device Identifier string - if that's what you discover they represent), and record your notes/observations about that section as you are working. This is very useful as you are reverse engineering your device. It allows you to keep all of your notes and observations in once place, in a structured and organised manner. Once you're satisfied with your demodulation and reverse engineering, you can choose to share your section definitions as a template for other DSpectrumGUI users to benefit from. 
+
+The reverse engineering worksheet view also helps you to view some common binary to integer translations for your defined sections, and gives you some code you can use to attempt to generate your own signals using RFCat. 
+
 # Supported Modulation/Encoding
 * Pulse-width Modulation (PWM) - 77/25 duty cycle version, and 66/33 duty cycle version
 * Frequency Shift Keying (2FSK) - though the app will treat it as OOK
