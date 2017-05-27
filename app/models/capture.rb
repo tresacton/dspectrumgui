@@ -33,8 +33,6 @@ class Capture < ActiveRecord::Base
     the_bin = original_binary
     while ((the_bin.size % 3) != 0)
       the_bin+='0'
-      puts "adding 0"
-      puts the_bin
     end
     the_bin.scan(/.../).each do |s|
       # 100 == 0
@@ -53,8 +51,6 @@ class Capture < ActiveRecord::Base
     the_bin = original_binary
     while ((the_bin.size % 3) != 0)
       the_bin+='0'
-      puts "adding 0"
-      puts the_bin
     end
     the_bin.scan(/..../).each do |s|
       # 100 == 0
@@ -73,8 +69,6 @@ class Capture < ActiveRecord::Base
 
     while ((the_bin.size % 3) != 0)
       the_bin+='0'
-      puts "adding 0"
-      puts the_bin
     end
     the_bin.scan(/.../).each do |set|
       pwm_errors[set]='invalid pwm' if (set != "110") and (set != "100")
@@ -105,8 +99,6 @@ class Capture < ActiveRecord::Base
       pwm_errors[the_bin.last]='incomplete pwm'  
       while ((the_bin.size % 4) != 0)
         the_bin+='0'
-        puts "adding 0"
-        puts the_bin
       end
     end
 
