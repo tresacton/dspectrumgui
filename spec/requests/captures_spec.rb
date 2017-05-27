@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Captures", type: :request do
-  describe "GET /captures" do
-    it "works! (now write some real specs)" do
+  describe "GET /captures without authenticating" do
+    it "redirects the user" do
       get captures_path
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(302)
     end
   end
 end
