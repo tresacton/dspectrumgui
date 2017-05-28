@@ -37,8 +37,8 @@ class Capture < ActiveRecord::Base
     the_bin.scan(/.../).each do |s|
       # 100 == 0
       # 110 == 1
-      symbols << "1" && puts("#{s} is 1") if s.to_i == 110
-      symbols << "0" && puts("#{s} is 0") if s.to_i == 100
+      symbols << "1" if s.to_i == 110
+      symbols << "0" if s.to_i == 100
     end
 
 
@@ -55,8 +55,8 @@ class Capture < ActiveRecord::Base
     the_bin.scan(/..../).each do |s|
       # 100 == 0
       # 110 == 1
-      symbols << "1" && puts("#{s} is 1") if s.to_i == 1110
-      symbols << "0" && puts("#{s} is 0") if s.to_i == 1000
+      symbols << "1" if s.to_i == 1110
+      symbols << "0" if s.to_i == 1000
     end
     symbols = (device.flip_pwm ? (flip symbols) : symbols)
   end
@@ -177,7 +177,7 @@ class Capture < ActiveRecord::Base
       if check_signals.blank? then
         response = "Yes"
       else
-        check_signals(shift=true).blank? ? response << "\n If you add a 0 at the start it is..." : response << "No"
+        check_signals(shift=true).blank? ? response << "\n If you add a 0 at the start it is... re-capture the signal with an empty cell at the beginning" : response << "No"
       end
 
       response

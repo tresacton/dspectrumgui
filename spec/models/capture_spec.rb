@@ -3,6 +3,22 @@ require 'rails_helper'
 RSpec.describe Capture, type: :model do  
 	subject { described_class.new }
 
+
+	######################
+	# General
+	######################
+
+	it "flips the binary" do
+		expect(subject.flip("1111000011110000")).to eq("0000111100001111")
+	end
+
+
+	it "transforms binary to hexcode" 
+	it "transforms arbitrarily supplied binary to hexcode"
+	it "transforms binary to ascii"
+	it "transforms arbitrarily supplied binary to ascii"
+
+
 	describe "Associations" do
 		it { should belong_to(:device) }
 		it { should belong_to(:unit) }
@@ -22,16 +38,20 @@ RSpec.describe Capture, type: :model do
 	end
 
 	describe "Valid PWM 66/33" do 
-	  	subject { described_class.new(binary: "110100110100",original_binary: "110100110100") }
+  	    let(:device) { Device.create(name: "name")  }
+  	    let(:unit) { Unit.create(name: "name", device_id: device.id)  }
+	  	subject { described_class.new(binary: "110100110100",original_binary: "110100110100", device_id: device.id, unit_id: unit.id) }
 		it "is reported as valid" do
       		expect(subject.valid_pwm?).to eq(true)
 		end
-		it "decodes PWM 66/33"
+		it "decodes PWM 66/33" do 
+      		expect(subject.pwm_decode).to eq("1010")
+		end
 	end
 
 	describe "Incomplete PWM 66/33" do 
 	  	subject { described_class.new(binary: "1101001101",original_binary: "1101001101") }
-		it "s padded with 0s and saved" do
+		it "is padded with 0s and saved" do
       		expect(subject.valid_pwm?).to eq(true)
 		end
 	end
@@ -73,11 +93,16 @@ RSpec.describe Capture, type: :model do
 	end
 
 	describe "Valid PWM 75/25" do 
-	  	subject { described_class.new(binary: "1110100011101000",original_binary: "1110100011101000") }
+  	    let(:device) { Device.create(name: "name")  }
+  	    let(:unit) { Unit.create(name: "name", device_id: device.id)  }
+	  	subject { described_class.new(binary: "1110100011101000",original_binary: "1110100011101000", device_id: device.id, unit_id: unit.id) }
+
 		it "is reported as valid" do
       		expect(subject.valid_pwm_7525?).to eq(true)
 		end
-		it "decodes PWM 66/33"
+		it "decodes PWM 75/25" do
+      		expect(subject.pwm_decode_7525).to eq("1010")
+		end
 	end
 
 
@@ -115,19 +140,29 @@ RSpec.describe Capture, type: :model do
   
 
 
+	######################
+	# Manchester
+	######################
+
+	describe "well-aligned, valid, manchester" do
+  		subject { described_class.new(binary: "1010010110100101",original_binary: "1010010110100101") }
+		it "is reported as valid" do
+      		expect(subject.valid_manchester?).to eq(true)
+		end
+	end
 
 
+	describe "off-by-one/poorly aligned, valid, manchester" do
+  		subject { described_class.new(binary: "101011001101001",original_binary: "101011001101001") }
+		it "is reported as valid" do
+      		expect(subject.valid_manchester?(true)).to eq("\n If you add a 0 at the start it is... re-capture the signal with an empty cell at the beginning")
+		end
+	end
 
-
-
-
-
-	it "flips the binary"
-	it "checks for well aligned manchester symbols"
-	it "checks for well off-by-one manchester symbols"
-	it "is ook if its nothing else"
-	it "decods manchester"
-	it "transforms binary to hexcode"
-	it "transforms binary to ascii"
-	it "transforms arbitrarily supplied binary to hexcode"
+	describe "manchester" do
+  		subject { described_class.new(binary: "1010010110100101",original_binary: "1010010110100101") }
+		it "is decoded" do
+      		expect(subject.manchester_decode).to eq("11001100") 
+		end
+	end
 end
