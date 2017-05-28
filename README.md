@@ -36,10 +36,11 @@ The reverse engineering worksheet view also helps you to view some common binary
 * Manchester encoding - both "G. E. Thomas" format, and "IEE 802" format
 
 # Usage
-The wiki will be updated as I have time. In the interim, there's a high-level PDF guide I developed for a workshop which demonstrates the basic use of this application. It's available here: <https://github.com/tresacton/dspectrumgui/raw/master/public/DSpectrumGUI%20%E2%80%93%20Reverse%20Engineering%20Guide.pdf>
+The wiki will be updated as I have time. In the interim, there's a high-level PDF guide I developed for a workshop which demonstrates the basic use of this application. It's available here: 
+[DSpectrumGUI Reverse Engineering Guide](https://github.com/tresacton/dspectrumgui/raw/master/public/DSpectrumGUI%20%E2%80%93%20Reverse%20Engineering%20Guide.pdf) 
 
 ## License
-Licensing is AGPL by default. An MIT license is available for purchase for commercial use. 
+Licensing is AGPL by default for personal use. An MIT license is available for purchase for commercial use. 
 
  
  
