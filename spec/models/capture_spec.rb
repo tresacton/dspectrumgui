@@ -53,7 +53,7 @@ RSpec.describe Capture, type: :model do
 		end
 	end
 
-  	describe "Shifted and incomplete PWM 66/33" do
+  	describe "Shifted Dr Nick Edge case PWM 66/33" do
   		subject { described_class.new(binary: "0110100110100",original_binary: "0110100110100") }
   		it "should detect and correct shift" do
       		expect(subject.valid_pwm?(true)).to eq("This is likely to be a PWM capture but there was an unexpected '0' at the beginning which suggests the last cell was also chopped off. It is STRONGLY recommended that you re-create this capture but this time start one cell later, and add an extra cell at the end even if it is empty. This is an edge-case that seems to occur rarely with rtl-sdr captures. We don't know why exactly.")
@@ -106,7 +106,7 @@ RSpec.describe Capture, type: :model do
 	end
 
 
-  	describe "Shifted and incomplete PWM 75/25" do
+  	describe "Shifted Dr Nick Edge case PWM 75/25" do
   		subject { described_class.new(binary: "01000111010001110",original_binary: "01000111010001110") }
   		it "should detect and correct shift" do
       		expect(subject.valid_pwm_7525?(true)).to eq("This is likely to be a PWM capture but there was an unexpected '0' at the beginning which suggests the last cell was also chopped off. It is STRONGLY recommended that you re-create this capture but this time start one cell later, and add an extra cell at the end even if it is empty. This is an edge-case that seems to occur rarely with rtl-sdr captures. We don't know why exactly.")
