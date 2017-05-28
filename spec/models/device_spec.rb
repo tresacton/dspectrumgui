@@ -37,8 +37,8 @@ RSpec.describe Device, type: :model do
 	  	subject { described_class.create(name:'device name') }
 		it "correctly exports sections as csv" do
 			section = Section.create(name: "name", start_pos: 0, end_pos: 15, colour: 'blue', notes: 'none', device_id: subject.id)  
-			puts subject.sections_to_csv('template','nobody')
-			expect(subject.sections_to_csv('template','nobody')).to eq("```ruby\nSectionTemplate.find_or_create_by(:name => \"template\") do |st|\n  st.sections = \"name,start_pos,end_pos,colour,notes\nname,0,15,blue,none\n\" \n  st.added_by = 'nobody' \nend\n```\n")
+			subject.sections_to_csv('template','nobody')
+			expect(`cat #{Rails.root.join('mcs', 'contribution.md').to_s}`).to eq("```ruby\nSectionTemplate.find_or_create_by(:name => \"template\") do |st|\n  st.sections = \"name,start_pos,end_pos,colour,notes\nname,0,15,blue,none\n\" \n  st.added_by = 'nobody' \nend\n```\n")
 		end
 	end
 

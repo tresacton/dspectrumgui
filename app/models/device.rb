@@ -61,7 +61,6 @@ class Device < ActiveRecord::Base
     end
     the_csv.gsub('"',"'")
     open(Rails.root.join('mcs', 'contribution.md').to_s, 'w') {|f|
-      dump = puts the_csv
       f.puts "```ruby"
       f.puts "SectionTemplate.find_or_create_by(:name => \"#{template_name}\") do |st|"
       f.puts "  st.sections = \"#{the_csv}\" "
@@ -69,7 +68,6 @@ class Device < ActiveRecord::Base
       f.puts "end"
       f.puts "```"
     }
-    `cat #{Rails.root.join('mcs', 'contribution.md').to_s}`
   end
 
 
