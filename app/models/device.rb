@@ -17,7 +17,7 @@ class Device < ActiveRecord::Base
   end
 
   def update_modulation
-    if modulation.blank? && encoding.blank?
+    if (modulation == "OOK" && encoding == "n/a") || (modulation.blank? && encoding.blank?)
       if could_be_pwm?
         update_attribute(:modulation,"PWM")
         update_attribute(:encoding,"66/33")
@@ -69,7 +69,7 @@ class Device < ActiveRecord::Base
       f.puts "end"
       f.puts "```"
     }
-
+    `cat #{Rails.root.join('mcs', 'contribution.md').to_s}`
   end
 
 
