@@ -66,60 +66,82 @@ class Capture < ActiveRecord::Base
 
     pwm_errors = {}
     the_bin = original_binary
+    fixed_incomplete = false
+    pre_padded_zero_alignment_error = false # The Dr Nick Edge Case
 
-    while ((the_bin.size % 3) != 0)
-      the_bin+='0'
+    if the_bin.scan(/./)[0] == '0'
+      pre_padded_zero_alignment_error = true
+      pwm_errors[the_bin.last]='shifted and possibly irrepairably incomplete pwm'
+      the_bin = the_bin[1..-1]
     end
-    the_bin.scan(/.../).each do |set|
-      pwm_errors[set]='invalid pwm' if (set != "110") and (set != "100")
-    end
 
-    if human == false
-      return pwm_errors.blank?
-    else
-      response = ""
-      if pwm_errors.blank?
-        response = "Yes"
-      elsif pwm_errors.present?
-        response << "No"
-      end
-
-      response
-    end
-  end
-
-  def valid_pwm_7525? human=false
-
-    pwm_errors = {}
-    the_bin = original_binary
-
-
-    if ((the_bin.size % 4) != 0)
-      
+    if ((the_bin.size % 3) != 0)
       pwm_errors[the_bin.last]='incomplete pwm'  
       while ((the_bin.size % 4) != 0)
         the_bin+='0'
       end
     end
 
+
+    the_bin.scan(/.../).each do |set|
+      pwm_errors[set]='invalid pwm' if (set != "110") and (set != "100")
+    end
+
+    shared_pwm_valid_response pwm_errors, the_bin, fixed_incomplete, pre_padded_zero_alignment_error, human
+
+  end
+
+  def valid_pwm_7525? human=false
+
+    pwm_errors = {}
+    the_bin = original_binary
+    fixed_incomplete = false
+    pre_padded_zero_alignment_error = false # The Dr Nick Edge Case
+
+    if the_bin.scan(/./)[0] == '0'
+      pre_padded_zero_alignment_error = true
+      pwm_errors[the_bin.last]='shifted and possibly irrepairably incomplete pwm'
+      the_bin = the_bin[1..-1]
+    end
+
+    if ((the_bin.size % 4) != 0)
+      pwm_errors[the_bin.last]='incomplete pwm'  
+      while ((the_bin.size % 4) != 0)
+        the_bin+='0'
+      end
+    end
+
+
     the_bin.scan(/..../).each do |set|
       pwm_errors[set]='invalid pwm' if (set != "1110") and (set != "1000")
     end
 
   
+    shared_pwm_valid_response pwm_errors, the_bin, fixed_incomplete, pre_padded_zero_alignment_error, human
 
+  end
+
+  def shared_pwm_valid_response pwm_errors, the_bin, fixed_incomplete, pre_padded_zero_alignment_error, human
     message = nil
     if pwm_errors.present?
       if pwm_errors.count == 1
-        if pwm_errors.first[1] == 'incomplete pwm'
-          message = "Valid PWM if padding at end was captured. Re-capture with padding and delete this item for best results."
+        if pwm_errors.has_value? 'incomplete pwm'
+          #message = "Valid PWM if padding at end was captured. Re-capture with padding and delete this item for best results."
+          message = "This was valid PWM but significant whitespace at the end was missed by you. I have added 0s to the end and saved the change."
+          fixed_incomplete = true
         end 
+        if (pwm_errors.has_value? "shifted and possibly irrepairably incomplete pwm") && (!pwm_errors.has_value? "invalid pwm")
+          message = "This is likely to be a PWM capture but there was an unexpected '0' at the beginning which suggests the last cell was also chopped off. It is STRONGLY recommended that you re-create this capture but this time start one cell later, and add an extra cell at the end even if it is empty. This is an edge-case that seems to occur rarely with rtl-sdr captures. We don't know why exactly."
+        end
       end
     end
-
-
+    
     if human == false
-      return pwm_errors.blank?
+      if fixed_incomplete && pwm_errors.size == 1
+        return true
+      else
+        return pwm_errors.blank?
+      end
     else
       response = ""
       if pwm_errors.blank?
@@ -128,10 +150,11 @@ class Capture < ActiveRecord::Base
         if message.blank?
           response << "No"
         else
-          response << message
+          self.original_binary = self.binary = the_bin
+          self.save unless pwm_errors.has_value? "shifted and possibly irrepairably incomplete pwm"
+          response << message # message will only show first time. gone from subsequent attempts due to being corrected and saved
         end
       end
-
       response
     end
   end

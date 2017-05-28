@@ -41,7 +41,7 @@ class CapturesController < ApplicationController
             if !got_it
               line = r.gets
               raw = line.chomp.strip.split(',')
-              puts "\n[*] Data as array: #{raw}" if $verbose == true
+              puts "\n[*] Data as array: #{raw}" 
               if raw.count > 1
                 demod = ''
                 arr = raw
