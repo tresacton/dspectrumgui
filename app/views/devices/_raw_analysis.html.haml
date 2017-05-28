@@ -29,6 +29,7 @@
           %tr
             %td
               = link_to "#{barray.unit.name}: ",barray.unit, :style => "color:#2a9fd6;"
+              %br
               = barray.name
             - barray.binary.scan(/\w/).each_with_index do |b, index|
               - if without_baseline == false
