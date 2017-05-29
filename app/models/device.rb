@@ -36,7 +36,7 @@ class Device < ActiveRecord::Base
 
   def format_frequency
     number_of_decimals = decimals(frequency)
-    pad = 6 - number_of_decimals
+    pad = 5 - number_of_decimals
     frequency.to_s.gsub(".","") + ("0"*pad)
   end
 

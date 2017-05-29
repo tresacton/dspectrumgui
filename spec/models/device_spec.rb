@@ -15,21 +15,21 @@ RSpec.describe Device, type: :model do
 	describe "format frequency" do 
 	  	subject { described_class.create(name:'device name', frequency: 433.0) }
 		it "correctly formats 433 mhz" do
-			expect(subject.format_frequency).to eq("4330000000")
+			expect(subject.format_frequency).to eq("433000000")
 		end
 	end
 
 	describe "format frequency" do 
 	  	subject { described_class.create(name:'device name', frequency: 1433.0) }
 		it "correctly formats 1.433 ghz" do
-			expect(subject.format_frequency).to eq("14330000000")
+			expect(subject.format_frequency).to eq("1433000000")
 		end
 	end
 
 	describe "format frequency" do 
 	  	subject { described_class.create(name:'device name', frequency: 43.0) }
 		it "correctly formats 43 mhz" do
-			expect(subject.format_frequency).to eq("430000000")
+			expect(subject.format_frequency).to eq("43000000")
 		end
 	end
 
