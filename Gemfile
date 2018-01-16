@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-ruby '2.2.2' 
+ruby '2.2.8' 
 gem 'rails', '4.2.5'
 
 # gem 'letsencrypt_plugin' # free SSL
