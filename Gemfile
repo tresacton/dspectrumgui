@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-ruby '2.2.8' 
-gem 'rails', '4.2.5'
+ruby '2.5.5' 
+gem 'rails', '4.2.11.1'
 
 # gem 'letsencrypt_plugin' # free SSL
 
@@ -69,35 +69,33 @@ gem 'upmin-admin'
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-  gem 'sqlite3'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'guard-bundler'
   gem 'guard-rails'
-  gem 'guard-rspec'
   gem 'html2haml'
   gem 'quiet_assets'
   gem 'rails_apps_pages'
   gem 'rails_apps_testing'
   gem 'rails_layout'
   gem 'rb-fchange', :require=>false
-  gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'spring-commands-rspec'
 end
 
 group :development, :test do
+  gem "sqlite3", "~> 1.3.6"
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
   gem 'shoulda'
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'rb-fsevent', :require => false #if RUBY_PLATFORM =~ /darwin/i
   gem 'guard-rspec'
   gem 'fuubar'
 end
 
 group :production do
-  gem 'puma'
+  #gem 'puma'
   gem 'rails_12factor'
 end
 

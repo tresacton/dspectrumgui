@@ -44,29 +44,12 @@
           %br
           = link_to 'Edit Device', edit_device_path(@device), :style => "color:#2a9fd6;"
 
-
-    / =render "manchester_analysis", device: @device, without_baseline: @without_baseline
-
-
-    / =render "manchester_analysis", unit: @unit
     =render "sections", sections: @sections
     =render "no_sections", sections: @sections, device: @device
     =render "pwm_analysis", device: @device, without_baseline: @without_baseline
     =render "manchester_analysis", device: @device, without_baseline: @without_baseline
     =render "raw_analysis", device: @device, without_baseline: @without_baseline
 
-
-
-
-
-    / =render "raw_analysis", unit: @unit
-
-    / # change raw so only shows if no encoding
-    / =render "raw_analysis", device: @device, without_baseline: @without_baseline
-
-    / # replace with section add ??????
-    / =render "add_unit", unit: @unit
-    / =render "show_units", device: @device
 
 
     %div.col-lg-12
@@ -89,16 +72,6 @@
       %p Pick and choose which captures to use as a template for each defined section and generate the binary for RFCat transmission. Note for this to work as intended, each bit in the table above should be included in a section definition or it won't be represented in the generated string.
       %br
 
-      / = form_tag(generate_path, method: "post") do
-      /   - @sections.each_with_index do |section|
-      /     = label_tag "section_#{section.id}", "#{section.name} from Capture", input_html: { class: 'form-control' }
-      /     = text_field_tag "section_#{section.id}"
-
-      /     %br
-      /   %br
-      /   %br
-      /   %button.btn.btn-primary{:type => "submit"} Generate
-      / %hr
       = form_tag(generate_path, method: "post") do 
         - @sections.each_with_index do |section|
           .form-group
@@ -113,7 +86,6 @@
               %hr
         .form-group
           .col-lg-10.col-lg-offset-0
-            /-#%button.btn.btn-default{:type => "reset"} Cancel
             %button.btn.btn-primary{:type => "submit"} Generate Binary
 
             %br
@@ -142,6 +114,3 @@
                 %button.btn.btn-primary{:type => "submit"} Share as Template
 
   %br
-
--#Vertical text style for TH
--#%th{:style => "color:grey;-webkit-transform: rotate(-90deg);-moz-transform: rotate(-90deg);-ms-transform: rotate(-90deg);-o-transform: rotate(-90deg);filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);color: #FFF;text-transform: uppercase;"} 0
