@@ -4,7 +4,8 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| Master / Current Release  | :white_check_mark: |
+| Master  | :white_check_mark: |
+| v1.0.0  | :white_check_mark: |
 
 
 ## Reporting a Vulnerability
