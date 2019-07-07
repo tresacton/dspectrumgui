@@ -8,6 +8,8 @@ The goal of this app is to make it trivial to demodulate common RF signals, and 
 Step by step instructions for Kali Linux (Debian based OS), and MAC OSX, are both available in the wiki: 
 <https://github.com/tresacton/dspectrumgui/wiki>
 
+# Docker
+Build with `docker build -t dspectrumgui .`, run with `docker run --rm -it -p 3001:3001 dspectrumgui`, then visit `http://127.0.0.1:3001` in your browser.
 
 # Features
 * Community can trivially donate reverse engineering worksheet templates
